@@ -1,38 +1,29 @@
-import React, { Component } from 'react';
-import { Switch, Route, BrowserRouter, Link } from 'react-router-dom'
+import React from 'react';
+import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Feed from './components/feed/feed'
-import Upliftment from './components/upliftment'
-import Protests from './components/protests'
-import DemandChange from './components/change'
+import Uplift from './components/uplift'
+import Protest from './components/protest'
+import Action from './components/action'
 import NotFound from './components/404'
+import Navbar from './components/navbar'
+import About from './components/about'
 
 
-export class App extends Component {
-
-  render() {
-    const pages = (
+function App() {
+  return (
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <Navbar />
       <Switch>
         <Route exact path='/'     component={Feed} />
-        <Route path='/upliftment' component={Upliftment} />
-        <Route path='/protests'   component={Protests} />
-        <Route path='/change'     component={DemandChange} />
+        <Route path='/action'     component={Action} />
+        <Route path='/protest'    component={Protest} />
+        <Route path='/uplift'     component={Uplift} />
+        <Route path='/about'      component={About} />
         <Route                    component={NotFound} />
       </Switch>
-    )
-
-    return (
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <div>
-          {pages} <br/>
-          <Link to={'/'}>Feed</Link> <br/>
-          <Link to={'/upliftment'}>Upliftment</Link> <br/>
-          <Link to={'/protests'}>Protests</Link> <br/>
-          <Link to={'/change'}>Change</Link> <br/>
-        </div>
-      </BrowserRouter>
-      
-    )
-  }
+    </BrowserRouter>
+  )
 }
+
 
 export default App
