@@ -11,15 +11,23 @@ Project for team 1's 2020 IBM Blue Movement Bootcamp
 
 #### References
 * [Material Studies](https://material.io/design/material-studies/about-our-material-studies.html)
+* [SPA-github-pages](https://github.com/rafgraph/spa-github-pages)
 
 
 ### Installation / Usage
+Two methods: Online and Local
+
+**Online Method** (gh-pages branch)\
+Access via website: https://blue-movement.github.io/team1_2020/
+
+**Local Method** (master branch)\
 Requires [node.js](https://nodejs.org/).
 ```sh
 $ git clone https://github.com/Blue-movement/team1_2020
 $ cd team1_2020
 $ ./run.sh
 ```
+
 
 ### Team
 * Adedapo Adetayo

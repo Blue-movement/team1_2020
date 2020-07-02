@@ -12,7 +12,7 @@ const NavBar = () => {
         <Toolbar>
           <ListItem >
             <Link to="/about" style={{ color: 'inherit', textDecoration: 'inherit' }} >
-              <Avatar alt="About" src="/img/logo_inverted.png" />
+              <Avatar alt="About" src="img/logo_inverted.png" />
             </Link>
           </ListItem >
           
