@@ -10,14 +10,22 @@ const NavBar = () => {
     <div style={{flexGrow: '1'}}>
       <AppBar color="primary" position="static">
         <Toolbar>
-          <ListItem >
+          <ListItem>
             <Link to="/about" style={{ color: 'inherit', textDecoration: 'inherit' }} >
-              <Avatar alt="About" src="img/logo_inverted.png" />
+              <Avatar alt="About" color='red' src="img/navbar_logo.png" />
             </Link>
-          </ListItem >
+            
+            <ListItemText style={{paddingLeft: '20px' }}>
+              <Typography color="inherit" variant="button">
+                <Link to="/about" style={{ color: 'inherit', textDecoration: 'inherit' }} >
+                  Black Lives Matter
+                </Link>
+              </Typography>
+            </ListItemText>
+          </ListItem>
           
-          <List >
-            <ListItem >
+          <List>
+            <ListItem>
               <ListItemText>
                 <Typography color="inherit" variant="button">
                   <Link to="/" style={{ color: 'inherit', textDecoration: 'inherit' }} >
@@ -49,7 +57,7 @@ const NavBar = () => {
                   </Link>
                 </Typography>
               </ListItemText>                
-            </ListItem >
+            </ListItem>
           </List>
         </Toolbar>
       </AppBar>
