@@ -28,7 +28,7 @@ const NavBar = () => {
             <ListItem>
               <ListItemText>
                 <Typography color="inherit" variant="button">
-                  <Link to="/" style={{ color: 'inherit', textDecoration: 'inherit' }} >
+                  <Link to="/feed" style={{ color: 'inherit', textDecoration: 'inherit' }} >
                     Feed
                   </Link>
                 </Typography>
@@ -52,7 +52,7 @@ const NavBar = () => {
 
               <ListItemText inset>
                 <Typography color="inherit" variant="button">
-                  <Link to="/uplift" style={{ color: 'inherit', textDecoration: 'inherit' }} >
+                  <Link to="/" style={{ color: 'inherit', textDecoration: 'inherit' }} >
                     Uplift
                   </Link>
                 </Typography>
