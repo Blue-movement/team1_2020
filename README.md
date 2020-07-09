@@ -22,6 +22,14 @@ Access via website: https://blue-movement.github.io/team1_2020/
 
 **Local Method** (master branch)\
 Requires [node.js](https://nodejs.org/).
+
+In order to run locally, you need to create an .env file in the root folder and define the following variables inside:
+* REACT_APP_TWITTER_BEARER_TOKEN
+
+Environmental variable REACT_APP_TWITTER_BEARER_TOKEN can be obtained from [Twitter API](https://developer.twitter.com/en/docs/basics/authentication/oauth-2-0/bearer-tokens)
+
+See [sample.env](https://github.com/Blue-movement/team1_2020/blob/master/.sample_env) for an example.
+
 ```sh
 $ git clone https://github.com/Blue-movement/team1_2020
 $ cd team1_2020
@@ -50,8 +58,10 @@ $ ./run.sh
     ├── src
     │   ├── components      # All frontend components used to display web pages 
     |   |   ├── feed                # Social Media Feed component
+    |   |   |   └── cardGridTwitter.js  # Generates cards from Twitter
+    |   |   |   └── feed.js             # Calls APIs and shows result
     |   |   |   └── ...
-    |   |   ├── 404.js              # 404 Status component
+    |   |   ├── 404.js              # 404 component
     |   |   ├── about.js            # About component
     |   |   ├── action.js           # Action component
     |   |   ├── navbar.js           # Navbar component
@@ -63,4 +73,5 @@ $ ./run.sh
     │   └── ...
     ├── README.md       # The file you are currently reading
     ├── run.sh          # Bash script to run the web application
+    ├── .sample_env     # An example of what .env should look like
     └── ...
