@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Button, Container } from '@material-ui/core';
 import CardGridTwitter from './cardGridTwitter'
+import CardGridInstagram from './cardGridInstagram'
 import makeComponentFromTheme from '../../theme'
 
+const NUM_POSTS_PER_NETWORK = 4;
 
 export class Feed extends Component {
 
@@ -14,12 +16,17 @@ export class Feed extends Component {
       isLoading: true,
       twitterPosts: [],
       nextTwitterResultUrl: null,
+      instagramPosts: [],
+      nextInstagramResultUrl: null,
+      visiblePosts: {}
     }
   }
 
   // Functions to run once component is mounted
   componentDidMount() {
     this.searchTwitter()
+    this.searchInstagram()
+    console.log(this.state.visiblePosts)
     this.setState({isLoading: false})
   }
 
@@ -46,7 +53,32 @@ export class Feed extends Component {
       .then(data => this.setState(prevState => {
         return { twitterPosts: [...prevState.twitterPosts, ...data.statuses],
                  nextTwitterResultUrl: data.search_metadata.next_results }
-        }))
+        }, () => this.state.visiblePosts.twitter = this.state.twitterPosts.splice(0, NUM_POSTS_PER_NETWORK)))
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+
+  // Queries Instagram using Hashtag
+  // https://medium.com/@h4t0n/instagram-data-scraping-550c5f2fb6f1
+  searchInstagram(query='blacklivesmatter') {
+    let url = this.state.nextInstagramResultUrl ? 
+    'https://www.instagram.com/explore/tags/' + query + '/?__a=1&max_id=' + this.state.nextInstagramResultUrl : 
+    'https://www.instagram.com/explore/tags/' + query + '/?__a=1'
+
+    fetch(url)
+      .then(response => {
+        if (response.ok) return response.json()
+        else {
+          console.log("Instagram request failed: " + url)
+          return {graphql: {hashtag: {edge_hashtag_to_media: {edges: this.state.instagramPosts, page_info: {end_cursor: this.state.nextInstagramResultUrl}}}}}
+        }
+      })
+      .then(data => this.setState(prevState => {
+        return { instagramPosts: [...prevState.instagramPosts, ...data.graphql.hashtag.edge_hashtag_to_media.edges],
+                 nextInstagramResultUrl: data.graphql.hashtag.edge_hashtag_to_media.page_info.end_cursor }
+        }, () => this.state.visiblePosts.instagram = this.state.instagramPosts.splice(0, NUM_POSTS_PER_NETWORK)))
       .catch(function(error) {
         console.log(error);
       });
@@ -55,7 +87,13 @@ export class Feed extends Component {
 
   // Loads more posts when "Load More" button is pressed
   loadMorePosts() {
-    this.searchTwitter()
+    if (this.state.twitterPosts.length < NUM_POSTS_PER_NETWORK)
+      this.searchTwitter()
+    else this.state.visiblePosts.twitter = this.state.twitterPosts.splice(0, NUM_POSTS_PER_NETWORK)
+
+    if (this.state.instagramPosts.length < NUM_POSTS_PER_NETWORK)
+      this.searchInstagram()
+    else this.state.visiblePosts.instagram = this.state.instagramPosts.splice(0, NUM_POSTS_PER_NETWORK)
   }
 
 
@@ -67,7 +105,8 @@ export class Feed extends Component {
         <h1 style={{textAlign: 'center'}}>Feed Page</h1>
         Combine multiple social media posts pertaining to the Black Lives Matter topic into one web application
         <br/> <br/> <br/> <br/>
-        {!this.state.isLoading && this.state.twitterPosts && this.state.twitterPosts.length > 0 ? <CardGridTwitter data={this.state.twitterPosts} /> : <p>Loading...</p>}
+        {!this.state.isLoading && this.state.visiblePosts.twitter && this.state.visiblePosts.twitter.length > 0 ? <CardGridTwitter data={this.state.visiblePosts.twitter} /> : <p>Loading...</p>}
+        {!this.state.isLoading && this.state.visiblePosts.instagram && this.state.visiblePosts.instagram.length > 0 ? <CardGridInstagram data={this.state.visiblePosts.instagram} /> : <p>Loading...</p>}
         <BLM_button />
       </Container>
     )
