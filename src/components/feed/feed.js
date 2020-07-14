@@ -9,8 +9,27 @@ export class Feed extends Component {
     super();
     this.state={
       isLoading: true,
-      articles:[]
+      articles:[],
+      tweets:[]
     }
+  }
+  
+
+  getTweets(){
+
+    const url="https://black-lives-matter-ibm.uk.r.appspot.com/"
+    fetch(url).then(
+      
+      (response)=>{
+         // console.log("Response is ")
+          return(response.json())
+      }
+      
+      ).then((data)=>{
+          
+           this.setState({tweets:data})
+         })    
+
   }
 
   getNewsArticles(){
