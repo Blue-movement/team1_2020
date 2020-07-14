@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Icon, Typography, Button } from '@material-ui/core';
+import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Icon, Typography } from '@material-ui/core';
 
 
 class CardGridInstagram extends Component {
@@ -15,7 +15,6 @@ class CardGridInstagram extends Component {
   componentDidMount() {
     const proxyurl = "https://cors-anywhere.herokuapp.com/"
     let {data} = this.props
-    console.log(data)
     let fetches = []
 
     const addUserData = user_info => {
@@ -73,6 +72,7 @@ class CardGridInstagram extends Component {
 
           <CardActions >
             {/* https://material.io/resources/icons */}
+            <Typography variant="button" style={{flex: 'auto', textAlign: 'right'}}>Instagram</Typography>
             <Icon onClick={() => window.open('https://www.instagram.com/p/' + post.node.shortcode, '_blank')} style={{flex: 'auto', textAlign: 'right'}}>read_more</Icon> 
           </CardActions>
         </Card>

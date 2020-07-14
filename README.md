@@ -25,8 +25,10 @@ Requires [node.js](https://nodejs.org/).
 
 In order to run locally, you need to create an .env file in the root folder and define the following variables inside:
 * REACT_APP_TWITTER_BEARER_TOKEN
+* REACT_APP_NEWS_API_KEY
 
 Environmental variable REACT_APP_TWITTER_BEARER_TOKEN can be obtained from [Twitter API](https://developer.twitter.com/en/docs/basics/authentication/oauth-2-0/bearer-tokens)
+Environmental variable REACT_APP_NEWS_API_KEY can be obtained from [News API](https://www.newsapi.org/)
 
 See [sample.env](https://github.com/Blue-movement/team1_2020/blob/master/.sample_env) for an example.
 

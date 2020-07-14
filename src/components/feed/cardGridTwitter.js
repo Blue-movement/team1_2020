@@ -26,6 +26,7 @@ export class CardGridTwitter extends Component {
 
           <CardActions >
             {/* https://material.io/resources/icons */}
+            <Typography variant="button" style={{flex: 'auto', textAlign: 'right'}}>Twitter</Typography>
             <Icon onClick={() => window.open('https://www.twitter.com/'+ tweet.user.screen_name + '/status/' + tweet.id_str, '_blank')} style={{flex: 'auto', textAlign: 'right'}}>read_more</Icon> 
           </CardActions>
         </Card>

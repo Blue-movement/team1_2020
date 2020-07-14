@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Button, Container } from '@material-ui/core';
+import { Button, Container, Typography } from '@material-ui/core';
 import CardGridTwitter from './cardGridTwitter'
 import CardGridInstagram from './cardGridInstagram'
+import CardGridNews from './cardGridNews'
 import makeComponentFromTheme from '../../theme'
 
 const NUM_POSTS_PER_NETWORK = 4;
@@ -18,16 +19,26 @@ export class Feed extends Component {
       nextTwitterResultUrl: null,
       instagramPosts: [],
       nextInstagramResultUrl: null,
+      newsPosts: [],
+      newsPage: 1,
       visiblePosts: {}
     }
   }
+
 
   // Functions to run once component is mounted
   componentDidMount() {
     this.searchTwitter()
     this.searchInstagram()
-    console.log(this.state.visiblePosts)
-    this.setState({isLoading: false})
+    this.searchNews()
+
+    let load = setInterval(() => {
+      if (this.state.visiblePosts.instagram && this.state.visiblePosts.twitter && this.state.visiblePosts.news) {
+        this.setState({isLoading: false})
+        clearInterval(load)
+      }
+    }, 100)
+      
   }
 
 
@@ -37,7 +48,7 @@ export class Feed extends Component {
     const proxyurl = "https://cors-anywhere.herokuapp.com/"; // https://stackoverflow.com/questions/43871637/no-access-control-allow-origin-header-is-present-on-the-requested-resource-whe/43881141#43881141
     let url = this.state.nextTwitterResultUrl ? 
     'https://api.twitter.com/1.1/search/tweets.json' + this.state.nextTwitterResultUrl : 
-    'https://api.twitter.com/1.1/search/tweets.json?q=' + query + '&lang=en&result_type=mixed&include_entities=1&count=8'
+    'https://api.twitter.com/1.1/search/tweets.json?q=' + query + '&lang=en&result_type=mixed&include_entities=1&count=' + (NUM_POSTS_PER_NETWORK * 3).toString()
 
     fetch(proxyurl + url, {
       headers: {
@@ -51,9 +62,14 @@ export class Feed extends Component {
         }
       })
       .then(data => this.setState(prevState => {
-        return { twitterPosts: [...prevState.twitterPosts, ...data.statuses],
-                 nextTwitterResultUrl: data.search_metadata.next_results }
-        }, () => this.state.visiblePosts.twitter = this.state.twitterPosts.splice(0, NUM_POSTS_PER_NETWORK)))
+        return { 
+          twitterPosts: [...prevState.twitterPosts, ...data.statuses],
+          nextTwitterResultUrl: data.search_metadata.next_results 
+        }}, () => {
+          let curData = this.state.visiblePosts
+          curData.twitter = this.state.twitterPosts.splice(0, NUM_POSTS_PER_NETWORK)
+          this.setState({visiblePosts: curData})
+      }))
       .catch(function(error) {
         console.log(error);
       });
@@ -76,9 +92,42 @@ export class Feed extends Component {
         }
       })
       .then(data => this.setState(prevState => {
-        return { instagramPosts: [...prevState.instagramPosts, ...data.graphql.hashtag.edge_hashtag_to_media.edges],
-                 nextInstagramResultUrl: data.graphql.hashtag.edge_hashtag_to_media.page_info.end_cursor }
-        }, () => this.state.visiblePosts.instagram = this.state.instagramPosts.splice(0, NUM_POSTS_PER_NETWORK)))
+        return { 
+          instagramPosts: [...prevState.instagramPosts, ...data.graphql.hashtag.edge_hashtag_to_media.edges],
+          nextInstagramResultUrl: data.graphql.hashtag.edge_hashtag_to_media.page_info.end_cursor 
+        }}, () => {
+          let curData = this.state.visiblePosts
+          curData.instagram = this.state.instagramPosts.splice(0, NUM_POSTS_PER_NETWORK)
+          this.setState({visiblePosts: curData})
+      }))
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+  
+  // Queries News API
+  // https://newsapi.org/docs/endpoints/everything
+  searchNews(query="BlackLivesMatter") {
+    const url = "http://newsapi.org/v2/everything?q=" + query + "&language=en&sortBy=publishedAt&pageSize=" + (NUM_POSTS_PER_NETWORK * 3).toString() +
+      "&page=" + this.state.newsPage.toString() + "&apiKey=" + process.env.REACT_APP_NEWS_API_KEY
+    fetch(url)
+      .then(response => {
+        if (response.ok) return response.json()
+        else {
+          console.log("News request failed: " + url)
+          return {articles: this.state.newsPosts}
+        }
+      })
+      .then(data => this.setState(prevState => {
+        return {
+          newsPosts: [...prevState.newsPosts, ...data.articles],
+          newsPage: prevState.newsPage++
+        }}, () => {
+          let curData = this.state.visiblePosts
+          curData.news = this.state.newsPosts.splice(0, NUM_POSTS_PER_NETWORK)
+          this.setState({visiblePosts: curData})
+      }))
       .catch(function(error) {
         console.log(error);
       });
@@ -87,78 +136,57 @@ export class Feed extends Component {
 
   // Loads more posts when "Load More" button is pressed
   loadMorePosts() {
+    // Load Twitter
     if (this.state.twitterPosts.length < NUM_POSTS_PER_NETWORK)
       this.searchTwitter()
-    else this.state.visiblePosts.twitter = this.state.twitterPosts.splice(0, NUM_POSTS_PER_NETWORK)
-
+    else {
+      let curData = this.state.visiblePosts
+      curData.twitter = this.state.twitterPosts.splice(0, NUM_POSTS_PER_NETWORK)
+      this.setState({isLoading: true}, () => this.setState({
+        visiblePosts: curData, 
+        isLoading: false
+      }))
+    }
+    
+    // Load Instagram
     if (this.state.instagramPosts.length < NUM_POSTS_PER_NETWORK)
       this.searchInstagram()
-    else this.state.visiblePosts.instagram = this.state.instagramPosts.splice(0, NUM_POSTS_PER_NETWORK)
-  }
+    else {
+      let curData = this.state.visiblePosts
+      curData.instagram = this.state.instagramPosts.splice(0, NUM_POSTS_PER_NETWORK)
+      this.setState({isLoading: true}, () => this.setState({
+        visiblePosts: curData, 
+        isLoading: false
+      }))
+    }
 
-
-  
-  constructor(){
-
-    super();
-    this.state={
-      isLoading: true,
-      articles:[],
-      tweets:[]
+    // Load News
+    if (this.state.newsPosts.length < NUM_POSTS_PER_NETWORK)
+      this.searchNews()
+    else {
+      let curData = this.state.visiblePosts
+      curData.news = this.state.newsPosts.splice(0, NUM_POSTS_PER_NETWORK)
+      this.setState({isLoading: true}, () => this.setState({
+        visiblePosts: curData, 
+        isLoading: false
+      }))
     }
   }
-  
 
-  getTweets(){
-
-    const url="https://black-lives-matter-ibm.uk.r.appspot.com/"
-    fetch(url).then(
-      
-      (response)=>{
-         // console.log("Response is ")
-          return(response.json())
-      }
-      
-      ).then((data)=>{
-          
-           this.setState({tweets:data})
-         })    
-
-  }
-
-  getNewsArticles(){
-    const apiKey="879248ecbcc04ce1a9bf0fef399076ff";
-    const url="http://newsapi.org/v2/everything?q=BlackLivesMatter&sortBy=publishedAt&apiKey=879248ecbcc04ce1a9bf0fef399076ff"
-    fetch(url).then(
-      
-      (response)=>{
-         // console.log("Response is ")
-          return(response.json())
-      }
-      
-      ).then((data)=>{
-          
-           this.setState({articles:data})
-         })    
-
-  }
-  
-  componentDidMount(){
- 
- this.setState({isLoading: false})
-  }
   
   render() {
-    const BLM_button = makeComponentFromTheme(<Button variant="outlined" color="secondary" onClick={() => this.loadMorePosts()} style={{marginTop: 20, marginBottom: 20}}>Load More</Button>)
+    const BLMButton = makeComponentFromTheme(<Button variant="outlined" color="secondary" onClick={() => this.loadMorePosts()} style={{marginBottom: 40}}>Load More</Button>)
    
     return (
       <Container>
-        <h1 style={{textAlign: 'center'}}>Feed Page</h1>
-        Combine multiple social media posts pertaining to the Black Lives Matter topic into one web application
-        <br/> <br/> <br/> <br/>
-        {!this.state.isLoading && this.state.visiblePosts.twitter && this.state.visiblePosts.twitter.length > 0 ? <CardGridTwitter data={this.state.visiblePosts.twitter} /> : <p>Loading...</p>}
-        {!this.state.isLoading && this.state.visiblePosts.instagram && this.state.visiblePosts.instagram.length > 0 ? <CardGridInstagram data={this.state.visiblePosts.instagram} /> : <p>Loading...</p>}
-        <BLM_button />
+        <Typography variant="h3" style={{textAlign: 'center', marginTop: 40}}>Feed Page</Typography>
+        <Typography variant="subtitle1" style={{textAlign: 'center', marginBottom: 40}}>Combine multiple social media posts pertaining to the Black Lives Matter topic into one web application</Typography>
+        
+        {!this.state.isLoading && this.state.visiblePosts.twitter && this.state.visiblePosts.twitter.length > 0 ? <CardGridTwitter data={this.state.visiblePosts.twitter} /> : <p>Loading Twitter...</p>}
+        {!this.state.isLoading && this.state.visiblePosts.instagram && this.state.visiblePosts.instagram.length > 0 ? <CardGridInstagram data={this.state.visiblePosts.instagram} /> : <p>Loading Instagram...</p>}
+        {!this.state.isLoading && this.state.visiblePosts.news && this.state.visiblePosts.news.length > 0 ? <CardGridNews data={this.state.visiblePosts.news} /> : <p>Loading News...</p>}
+        <BLMButton />
+
       </Container>
     )
   }
