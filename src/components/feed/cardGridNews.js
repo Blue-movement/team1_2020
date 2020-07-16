@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Icon, Typography } from '@material-ui/core';
+import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Typography } from '@material-ui/core'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 
 
 export class CardGridNews extends Component {
@@ -8,7 +9,7 @@ export class CardGridNews extends Component {
     const { data } = this.props
     const grid = data ? data.map((article, index) =>  
       <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
-        <Card style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+        <Card style={{display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column'}}>
           <CardHeader
             title={<Typography variant="subtitle2">{article.title}</Typography>}
             subheader={<Typography variant="overline">{article.publishedAt}</Typography>}
@@ -16,7 +17,7 @@ export class CardGridNews extends Component {
           />
 
           <CardMedia style={{height: '250px', width: '100%'}}
-            image={article.urlToImage}
+            image={article.urlToImage ? article.urlToImage : 'https://blacklivesmatter.com/wp-content/themes/blm/dist/images/logo-black-lives-matter.png'}
           />
 
           <CardContent>
@@ -25,10 +26,11 @@ export class CardGridNews extends Component {
             </Typography>
           </CardContent>
 
-          <CardActions >
-            {/* https://material.io/resources/icons */}
-            <Typography variant="button" style={{flex: 'auto', textAlign: 'right'}}>News: {article.source.name}</Typography>
-            <Icon onClick={() => window.open(article.url, '_blank')} style={{flex: 'auto', textAlign: 'right'}}>read_more</Icon> 
+          <CardActions style={{justifyContent: 'center'}}>
+            {/* https://material-ui.com/components/material-icons/ */}
+            <Button onClick={() => window.open(article.url, '_blank')} endIcon={<OpenInNewIcon />}>        
+              {article.source.name}
+            </Button>
           </CardActions>
         </Card>
       </Grid>) : null

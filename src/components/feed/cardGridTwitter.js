@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Avatar, Card, CardActions, CardContent, CardHeader, Grid, Icon, Typography } from '@material-ui/core';
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Grid, Typography } from '@material-ui/core'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 
 
 export class CardGridTwitter extends Component {
@@ -8,7 +9,7 @@ export class CardGridTwitter extends Component {
     const { data } = this.props
     const grid = data ? data.map((tweet, index) =>  
       <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
-        <Card style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+        <Card style={{display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column'}}>
           <CardHeader
             avatar={
               <Avatar src={tweet.user.profile_image_url} />
@@ -24,10 +25,11 @@ export class CardGridTwitter extends Component {
             </Typography>
           </CardContent>
 
-          <CardActions >
-            {/* https://material.io/resources/icons */}
-            <Typography variant="button" style={{flex: 'auto', textAlign: 'right'}}>Twitter</Typography>
-            <Icon onClick={() => window.open('https://www.twitter.com/'+ tweet.user.screen_name + '/status/' + tweet.id_str, '_blank')} style={{flex: 'auto', textAlign: 'right'}}>read_more</Icon> 
+          <CardActions style={{justifyContent: 'center'}}>
+            {/* https://material-ui.com/components/material-icons/ */}
+            <Button onClick={() => window.open('https://www.twitter.com/'+ tweet.user.screen_name + '/status/' + tweet.id_str, '_blank')} endIcon={<OpenInNewIcon />}>        
+              Twitter
+            </Button>         
           </CardActions>
         </Card>
       </Grid>) : null

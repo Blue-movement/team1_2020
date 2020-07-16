@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Icon, Typography } from '@material-ui/core';
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Typography } from '@material-ui/core'
+import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 
 
 class CardGridInstagram extends Component {
@@ -47,7 +48,7 @@ class CardGridInstagram extends Component {
 
     const grid = this.state.data && this.state.data.length > 0 ? this.state.data.map((post, index) =>
       <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
-        <Card style={{display: 'flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+        <Card style={{display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column'}}>
           <CardHeader
             avatar={
               <Avatar src={post.node.owner.profile_pic_url} />
@@ -70,10 +71,11 @@ class CardGridInstagram extends Component {
             </Typography>
           </CardContent>
 
-          <CardActions >
-            {/* https://material.io/resources/icons */}
-            <Typography variant="button" style={{flex: 'auto', textAlign: 'right'}}>Instagram</Typography>
-            <Icon onClick={() => window.open('https://www.instagram.com/p/' + post.node.shortcode, '_blank')} style={{flex: 'auto', textAlign: 'right'}}>read_more</Icon> 
+          <CardActions style={{justifyContent: 'center'}}>
+            {/* https://material-ui.com/components/material-icons/ */}
+            <Button onClick={() => window.open('https://www.instagram.com/p/' + post.node.shortcode, '_blank')} endIcon={<OpenInNewIcon />}>        
+              Instagram
+            </Button>
           </CardActions>
         </Card>
       </Grid>) : null
