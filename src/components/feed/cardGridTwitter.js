@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Grid, Typography } from '@material-ui/core'
+import { Avatar, Button, Card, CardActions, CardContent, CardHeader, Divider, Grid, Typography } from '@material-ui/core'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 
 
@@ -19,11 +19,15 @@ export class CardGridTwitter extends Component {
             onClick={() => window.open('https://www.twitter.com/'+ tweet.user.screen_name, '_blank')}
           />
 
+          <Divider variant="middle"/>
+
           <CardContent>
             <Typography variant="body1">
               {tweet.text}
             </Typography>
           </CardContent>
+
+          <Divider variant="middle"  />
 
           <CardActions style={{justifyContent: 'center'}}>
             {/* https://material-ui.com/components/material-icons/ */}

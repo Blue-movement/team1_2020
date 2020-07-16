@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Button, Container, Typography } from '@material-ui/core';
+import { Box, Button, Container, IconButton, LinearProgress, Typography } from '@material-ui/core';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import CardGridTwitter from './cardGridTwitter'
 import CardGridInstagram from './cardGridInstagram'
 import CardGridNews from './cardGridNews'
@@ -109,7 +110,7 @@ export class Feed extends Component {
   // Queries News API
   // https://newsapi.org/docs/endpoints/everything
   searchNews(query="BlackLivesMatter") {
-    const url = "http://newsapi.org/v2/everything?q=" + query + "&language=en&sortBy=publishedAt&pageSize=" + (NUM_POSTS_PER_NETWORK * 3).toString() +
+    const url = "http://newsapi.org/v2/everything?q=" + query + "&language=en&excludeDomains=adafruit.com&sortBy=publishedAt&pageSize=" + (NUM_POSTS_PER_NETWORK * 3).toString() +
       "&page=" + this.state.newsPage.toString() + "&apiKey=" + process.env.REACT_APP_NEWS_API_KEY
     fetch(url)
       .then(response => {
@@ -134,9 +135,8 @@ export class Feed extends Component {
   }
 
 
-  // Loads more posts when "Load More" button is pressed
-  loadMorePosts() {
-    // Load Twitter
+  // Fetches more Twitter posts if we don't have enough in stock
+  loadMoreTwitter() {
     if (this.state.twitterPosts.length < NUM_POSTS_PER_NETWORK)
       this.searchTwitter()
     else {
@@ -147,8 +147,11 @@ export class Feed extends Component {
         isLoading: false
       }))
     }
-    
-    // Load Instagram
+  }
+
+
+  // Fetches more Instagram posts if we don't have enough in stock
+  loadMoreInstagram() {
     if (this.state.instagramPosts.length < NUM_POSTS_PER_NETWORK)
       this.searchInstagram()
     else {
@@ -159,8 +162,11 @@ export class Feed extends Component {
         isLoading: false
       }))
     }
+  }
 
-    // Load News
+
+  // Fetches more news articles if we don't have enough in stock
+  loadMoreNews() {
     if (this.state.newsPosts.length < NUM_POSTS_PER_NETWORK)
       this.searchNews()
     else {
@@ -173,20 +179,53 @@ export class Feed extends Component {
     }
   }
 
+
+  // Loads more posts when "Load More" button is pressed
+  loadMorePosts() {
+    this.loadMoreTwitter()    // Load Twitter
+    this.loadMoreInstagram()  // Load Instagram
+    this.loadMoreNews()       // Load News
+  }
+
   
   render() {
+    const BLMLoader = makeComponentFromTheme(<LinearProgress color="secondary" style={{marginTop: 20, marginBottom: 20}} />)
     const BLMButton = makeComponentFromTheme(<Button variant="outlined" color="secondary" onClick={() => this.loadMorePosts()} style={{marginBottom: 40}}>Load More</Button>)
+    const generateLoadMoreButton = loadFunction => makeComponentFromTheme(
+      <IconButton color="secondary" onClick={loadFunction}>
+        <NavigateNextIcon />
+      </IconButton>
+      )
+    const LoadMoreTwitterButton = generateLoadMoreButton(() => this.loadMoreTwitter())
+    const LoadMoreInstagramButton = generateLoadMoreButton(() => this.loadMoreInstagram())
+    const LoadMoreNewsButton = generateLoadMoreButton(() => this.loadMoreNews())
    
     return (
       <Container>
         <Typography variant="h3" style={{textAlign: 'center', marginTop: 40}}>Feed Page</Typography>
         <Typography variant="subtitle1" style={{textAlign: 'center', marginBottom: 40}}>Combine multiple social media posts pertaining to the Black Lives Matter topic into one web application</Typography>
-        
-        {!this.state.isLoading && this.state.visiblePosts.twitter && this.state.visiblePosts.twitter.length > 0 ? <CardGridTwitter data={this.state.visiblePosts.twitter} /> : <p>Loading Twitter...</p>}
-        {!this.state.isLoading && this.state.visiblePosts.instagram && this.state.visiblePosts.instagram.length > 0 ? <CardGridInstagram data={this.state.visiblePosts.instagram} /> : <p>Loading Instagram...</p>}
-        {!this.state.isLoading && this.state.visiblePosts.news && this.state.visiblePosts.news.length > 0 ? <CardGridNews data={this.state.visiblePosts.news} /> : <p>Loading News...</p>}
-        <BLMButton />
 
+        {this.state.visiblePosts.twitter && this.state.visiblePosts.twitter.length > 0 ?
+          <Box style={{display: 'flex'}}>
+            <CardGridTwitter data={this.state.visiblePosts.twitter} /> 
+            <LoadMoreTwitterButton />
+          </Box> : <BLMLoader />}
+        
+        {!this.state.isLoading && this.state.visiblePosts.instagram && this.state.visiblePosts.instagram.length > 0 ?
+          <Box style={{display: 'flex'}}>
+            <CardGridInstagram data={this.state.visiblePosts.instagram} /> 
+            <LoadMoreInstagramButton />
+          </Box> : <BLMLoader />}
+
+        {this.state.visiblePosts.news && this.state.visiblePosts.news.length > 0 ?
+          <Box style={{display: 'flex'}}>
+            <CardGridNews data={this.state.visiblePosts.news} />
+            <LoadMoreNewsButton />
+          </Box> : <BLMLoader />}
+
+        <Box style={{display: 'grid', justifyContent: 'center', marginBottom: '50'}}>
+          <BLMButton />
+        </Box>
       </Container>
     )
   }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Avatar, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Typography } from '@material-ui/core'
+import { Avatar, Container, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, LinearProgress, Grid, Typography } from '@material-ui/core'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 
 
@@ -9,12 +9,12 @@ class CardGridInstagram extends Component {
     super(props)
 
     this.state = {
+      fetching: true,
       data: []
     }
   }
 
   componentDidMount() {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/"
     let {data} = this.props
     let fetches = []
 
@@ -30,12 +30,13 @@ class CardGridInstagram extends Component {
           })
         })
       })
+      this.setState({fetching: false})
     }
 
     // Gets users' username, and profile pic url from a Python flask server
     if (data) data.forEach((post) =>
       fetches.push(
-        fetch(proxyurl + "http://prince25.pythonanywhere.com/idtoname?id=" + post.node.owner.id)
+        fetch("http://prince25.pythonanywhere.com/idtoname?id=" + post.node.owner.id)
           .then(res => res.json())
       )
     )
@@ -71,6 +72,8 @@ class CardGridInstagram extends Component {
             </Typography>
           </CardContent>
 
+          <Divider variant="middle"/>
+
           <CardActions style={{justifyContent: 'center'}}>
             {/* https://material-ui.com/components/material-icons/ */}
             <Button onClick={() => window.open('https://www.instagram.com/p/' + post.node.shortcode, '_blank')} endIcon={<OpenInNewIcon />}>        
@@ -82,9 +85,14 @@ class CardGridInstagram extends Component {
     
     return (
       <div>
-        <Grid container spacing={3}>
-          {grid}
-        </Grid>
+        {!this.state.fetching ?
+          <Grid container spacing={3}>
+            {grid} 
+          </Grid> : 
+          <Container style={{width: '100vw', maxWidth: '1232px', padding: 0}}>
+            <LinearProgress style={{marginTop: 20, marginBottom: 20}} />
+          </Container> 
+        }
       </div>
     )
   }
