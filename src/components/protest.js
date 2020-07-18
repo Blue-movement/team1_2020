@@ -12,7 +12,7 @@ export class Protest extends Component {
           Text/input locations and return nearby protests <br/>
           Could also offer advice on keeping safe  <br/>
           And maybe text you live updates <br/>
-      <input type="text" placeholder="Search..">
+          <input type="text" placeholder="Search..">
         </Container>
       </div>
     )
