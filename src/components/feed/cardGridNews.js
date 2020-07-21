@@ -39,11 +39,9 @@ export class CardGridNews extends Component {
 
 
     return (
-      <div>
-        <Grid container spacing={3}>
-          {grid}
-        </Grid>
-      </div>
+      <Grid container spacing={3}>
+        {grid}
+      </Grid>
     )
   }
 }

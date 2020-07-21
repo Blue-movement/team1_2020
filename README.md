@@ -26,9 +26,14 @@ Requires [node.js](https://nodejs.org/).
 In order to run locally, you need to create an .env file in the root folder and define the following variables inside:
 * REACT_APP_TWITTER_BEARER_TOKEN
 * REACT_APP_NEWS_API_KEY
+* REACT_APP_REDDIT_CLIENT_ID
+* REACT_APP_REDDIT_CLIENT_SECRET
+* REACT_APP_REDDIT_REFRESH_TOKEN
 
 Environmental variable REACT_APP_TWITTER_BEARER_TOKEN can be obtained from [Twitter API](https://developer.twitter.com/en/docs/basics/authentication/oauth-2-0/bearer-tokens)
 Environmental variable REACT_APP_NEWS_API_KEY can be obtained from [News API](https://www.newsapi.org/)
+Environmental variables REACT_APP_REDDIT_CLIENT_ID and REACT_APP_REDDIT_CLIENT_SECRET can be obtained from [Reddit Developer Page](https://www.reddit.com/prefs/apps)
+Environmental variable REACT_APP_REDDIT_REFRESH_TOKEN can be obtained from [reddit-oauth-helper](https://github.com/not-an-aardvark/reddit-oauth-helper)
 
 See [sample.env](https://github.com/Blue-movement/team1_2020/blob/master/.sample_env) for an example.
 
