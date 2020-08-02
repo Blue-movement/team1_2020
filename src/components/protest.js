@@ -86,12 +86,12 @@ export class Protest extends Component {
       defer
     ></script>
       </div>
-      <input
+      <input>
         id="pac-input"
         class="controls"
         type="text"
         placeholder="Search Box"
-      ></input>
+      </input>
       <div id="map"></div>
     )
   }
