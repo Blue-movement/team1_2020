@@ -78,7 +78,6 @@ export class Protest extends Component {
           Text/input locations and return nearby protests <br/>
           Could also offer advice on keeping safe  <br/>
           And maybe text you live updates <br/>
-          <input type="text" id="myText" value="Some text...">
         </Container>
       
         <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
