@@ -9,6 +9,12 @@ Project for team 1's 2020 IBM Blue Movement Bootcamp
 * [node.js](http://nodejs.org) - Evented I/O for the backend
 * [Material UI](https://material-ui.com/) - Frontend framework for UI design
 
+### API's
+* [snoowrap (Reddit JS API)](https://github.com/not-an-aardvark/snoowrap)
+* [Twitter](https://developer.twitter.com/en/docs)
+* [News API](https://newsapi.org/)
+* [Instagram API](https://www.instagram.com/developer/)
+
 #### References
 * [Material Studies](https://material.io/design/material-studies/about-our-material-studies.html)
 * [SPA-github-pages](https://github.com/rafgraph/spa-github-pages)
@@ -30,10 +36,10 @@ In order to run locally, you need to create an .env file in the root folder and 
 * REACT_APP_REDDIT_CLIENT_SECRET
 * REACT_APP_REDDIT_REFRESH_TOKEN
 
-Environmental variable REACT_APP_TWITTER_BEARER_TOKEN can be obtained from [Twitter API](https://developer.twitter.com/en/docs/basics/authentication/oauth-2-0/bearer-tokens)
-Environmental variable REACT_APP_NEWS_API_KEY can be obtained from [News API](https://www.newsapi.org/)
-Environmental variables REACT_APP_REDDIT_CLIENT_ID and REACT_APP_REDDIT_CLIENT_SECRET can be obtained from [Reddit Developer Page](https://www.reddit.com/prefs/apps)
-Environmental variable REACT_APP_REDDIT_REFRESH_TOKEN can be obtained from [reddit-oauth-helper](https://github.com/not-an-aardvark/reddit-oauth-helper)
+- Environmental variable REACT_APP_TWITTER_BEARER_TOKEN can be obtained from [Twitter API](https://developer.twitter.com/en/docs/basics/authentication/oauth-2-0/bearer-tokens)
+- Environmental variable REACT_APP_NEWS_API_KEY can be obtained from [News API](https://www.newsapi.org/)
+- Environmental variables REACT_APP_REDDIT_CLIENT_ID and REACT_APP_REDDIT_CLIENT_SECRET can be obtained from [Reddit Developer Page](https://www.reddit.com/prefs/apps)
+- Environmental variable REACT_APP_REDDIT_REFRESH_TOKEN can be obtained from [reddit-oauth-helper](https://github.com/not-an-aardvark/reddit-oauth-helper)
 
 See [sample.env](https://github.com/Blue-movement/team1_2020/blob/master/.sample_env) for an example.
 
@@ -50,7 +56,6 @@ $ ./run.sh
 * Myles Cherebin
 * Anthonia Duru
 * Caitlynn Journey
-* Ndunge Mulwa
 * Prabhjot Singh
 * Ekene Uzoegwu
 * Armani Weise
@@ -65,8 +70,11 @@ $ ./run.sh
     ├── src
     │   ├── components      # All frontend components used to display web pages 
     |   |   ├── feed                # Social Media Feed component
-    |   |   |   └── cardGridTwitter.js  # Generates cards from Twitter
-    |   |   |   └── feed.js             # Calls APIs and shows result
+    |   |   |   └── cardGridInstagram.js    # Generates cards from Instagram
+    |   |   |   └── cardGridNews.js         # Generates cards from News
+    |   |   |   └── cardGridReddit.js       # Generates cards from Reddit
+    |   |   |   └── cardGridTwitter.js      # Generates cards from Twitter
+    |   |   |   └── feed.js                 # Calls APIs and shows result
     |   |   |   └── ...
     |   |   ├── 404.js              # 404 component
     |   |   ├── about.js            # About component
@@ -81,4 +89,5 @@ $ ./run.sh
     ├── README.md       # The file you are currently reading
     ├── run.sh          # Bash script to run the web application
     ├── .sample_env     # An example of what .env should look like
+    ├── .env            # Environmental variables containing keys for API's
     └── ...
