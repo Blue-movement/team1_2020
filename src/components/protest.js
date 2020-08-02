@@ -91,7 +91,7 @@ export class Protest extends Component {
         class="controls"
         type="text"
         placeholder="Search Box"
-      />
+      ></input>
       <div id="map"></div>
     )
   }
