@@ -2,11 +2,8 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import InputBase from "@material-ui/core/InputBase";
-import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/Menu";
 import SearchIcon from "@material-ui/icons/Search";
-import DirectionsIcon from "@material-ui/icons/Directions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -32,15 +29,12 @@ export default function CustomizedInputBase(props) {
   const classes = useStyles();
 
   return (
-    <Paper component="form" className={classes.root}>
-      <IconButton className={classes.iconButton} aria-label="menu">
-        <MenuIcon />
-      </IconButton>
+    <Paper className={classes.root}>
       <InputBase
         className={classes.input}
         value={props.value}
-        placeholder="Search Google Maps"
-        inputProps={{ "aria-label": "search google maps" }}
+        placeholder="Type your location"
+        inputProps={{ "aria-label": "location" }}
         onChange={props.onChange}
       />
       <IconButton
@@ -49,14 +43,6 @@ export default function CustomizedInputBase(props) {
         aria-label="search"
       >
         <SearchIcon />
-      </IconButton>
-      <Divider className={classes.divider} orientation="vertical" />
-      <IconButton
-        color="primary"
-        className={classes.iconButton}
-        aria-label="directions"
-      >
-        <DirectionsIcon />
       </IconButton>
     </Paper>
   );

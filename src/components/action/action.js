@@ -1,13 +1,8 @@
-/* global gapi */
 import React, { Component } from "react";
 import { Container, Button } from "@material-ui/core";
-import Actionchild from "./actionchild";
-//import { useQuery, useSubscription } from "urql";
 import axios from "axios";
 import CustomizedInputBase from "./searchbar";
 import Geocode from "react-geocode";
-//import gql from "graphql-tag";
-//import { gapi } from "gapi-script";
 
 const axiosOpenStatesGraphQL = axios.create({
   baseURL: "https://openstates.org/graphql/",
@@ -17,75 +12,55 @@ const axiosOpenStatesGraphQL = axios.create({
 });
 
 export class Action extends Component {
-  state = {
-    address: null,
-    lati: null,
-    logi: null,
-    longaddy: null,
-  };
+  constructor() {
+    super();
+
+    this.state = {
+      address: null,
+      lati: null,
+      logi: null,
+      longaddy: null,
+    };
+  }
 
   componentDidMount() {
-    // this.onFetchFromOpenStates();
-    console.log("mounted");
     Geocode.setApiKey("AIzaSyACD21gEm0jdeRklb6qo4O31k39x9brz8U");
     Geocode.setLanguage("en");
     Geocode.enableDebug();
   }
 
-  // onChange = (event) => {
-  //   console.log("called");
-  // };
-
   onSubmit = (event) => {
     event.preventDefault();
-    this.onFetchFromGeocode()
-      .then((result) => {
-        console.log(result);
-        this.onLookup(this.state.address);
+    Geocode.fromAddress(this.state.address)
+      .then((response) => {
+        if (response.status === "OK") {
+          const { lat, lng } = response.results[0].geometry.location;
+          this.setState(
+            {
+              lati: lat,
+              logi: lng,
+              longaddy: response.results[0].formatted_address,
+            },
+            () => {
+              this.onFetchFromOpenStates();
+              this.fetchCivicInfo();
+            }
+          );
+        }
       })
-      .then((result) => {
-        console.log(result);
-        console.log(this.state.longaddy);
-        this.onFetchFromOpenStates();
-      })
-      .catch((e) => {
-        console.log(e);
-        throw e;
+      .catch((error) => {
+        console.error(error);
       });
   };
 
-  async onLookup() {
-    var key = "AIzaSyD9MzWFIJ0TltXFjxRbZ38N5dRgTCxJKzE";
+  async fetchCivicInfo() {
     fetch(
-      "https://www.googleapis.com/civicinfo/v2/representatives?key=" +
-        key +
-        "&address=" +
-        this.state.address
+      "https://www.googleapis.com/civicinfo/v2/representatives?key=AIzaSyD9MzWFIJ0TltXFjxRbZ38N5dRgTCxJKzE&address=" +
+        this.state.longaddy
     )
       .then((res) => res.json())
       .then((data) => console.log(data));
   }
-
-  onFetchFromGeocode = () => {
-    return new Promise((resolve, reject) => {
-      Geocode.fromAddress(this.state.address).then(
-        (response) => {
-          const { lat, lng } = response.results[0].geometry.location;
-          const { addy } = response.results[0].formatted_address;
-          this.setState({
-            lati: lat,
-            logi: lng,
-            longaddy: addy,
-          });
-          resolve(true);
-        },
-        (error) => {
-          console.error(error);
-          reject(true);
-        }
-      );
-    });
-  };
 
   async onFetchFromOpenStates() {
     let lat = this.state.lati;
@@ -119,29 +94,7 @@ export class Action extends Component {
     });
   }
 
-  // async onFetchFromCivicInformation() {
-  //   const authClient = await auth.getClient();
-  //   google.options({ auth: authClient });
-  //   const civics = google.civicinfo({
-  //     version: "v2",
-  //   });
-  //   const res = await civics.representatives.representativeInfoByAddress({
-  //     address: this.state.address,
-  //     includeOffices: true,
-  //   });
-  //   console.log(res);
-  //   console.log("called");
-  // }
-
   render() {
-    // const [result] = useQuery({ query: FEED_QUERY });
-    // const { data, fetching, error } = result;
-
-    // if (fetching) return <div>Fetching</div>;
-    // if (error) return <div>Error</div>;
-
-    // const infotorender = data.feed.info;
-    const { address } = this.state;
     return (
       <div>
         <Container>
@@ -153,16 +106,11 @@ export class Action extends Component {
           Users will be able to contact their representatives easily <br />
           Users will be able to see polling locations for primaries, general
           elections and run-offs <br />
-          {/* <div>
-            {infotorender.map((info) => (
-              <Actionchild val={info} />
-            ))}
-          </div> */}
-          <form onSubmit={this.onSubmit.bind(this)}>
+          <form onSubmit={this.onSubmit}>
             <CustomizedInputBase
               type="text"
               name="address"
-              value={address}
+              value={this.state.address || ""}
               onChange={(event) =>
                 this.setState({ address: event.target.value })
               }
@@ -178,6 +126,7 @@ export class Action extends Component {
                 </div>
               )}
             </div>
+
             <div>
               <Button onSubmit={this.onSubmit}>Submit</Button>
             </div>
