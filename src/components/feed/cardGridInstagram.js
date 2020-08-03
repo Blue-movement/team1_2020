@@ -36,7 +36,7 @@ class CardGridInstagram extends Component {
     // Gets users' username, and profile pic url from a Python flask server
     if (data) data.forEach((post) =>
       fetches.push(
-        fetch("http://prince25.pythonanywhere.com/idtoname?id=" + post.node.owner.id)
+        fetch("https://prince25.pythonanywhere.com/idtoname?id=" + post.node.owner.id)
           .then(res => res.json())
       )
     )
