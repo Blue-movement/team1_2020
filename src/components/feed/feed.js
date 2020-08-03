@@ -114,9 +114,9 @@ export class Feed extends Component {
   // Queries News API
   // https://newsapi.org/docs/endpoints/everything
   searchNews(query="BlackLivesMatter") {
-    const url = process.env.NODE_ENV == "development" ? "https://newsapi.org/v2/everything?q=" + query + "&language=en&excludeDomains=adafruit.com&" + 
+    const url = process.env.NODE_ENV === "development" ? "https://newsapi.org/v2/everything?q=" + query + "&language=en&excludeDomains=adafruit.com&" + 
     "sortBy=publishedAt&pageSize=" + (NUM_POSTS_PER_NETWORK * 3).toString() + "&page=" + this.state.newsPage.toString() + "&apiKey=" + process.env.REACT_APP_NEWS_API_KEY :
-    
+
     "https://prince25.pythonanywhere.com/news?q=" + query + "&s=" + (NUM_POSTS_PER_NETWORK * 3).toString() + "&p=" + this.state.newsPage.toString() + 
     "&k=" + process.env.REACT_APP_NEWS_API_KEY // Since News API only allows localhost CORS for free, use a proxy
 
