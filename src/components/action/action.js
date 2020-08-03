@@ -41,11 +41,12 @@ export class Action extends Component {
     this.onFetchFromGeocode()
       .then((result) => {
         console.log(result);
-        this.onFetchFromOpenStates();
+        this.onLookup(this.state.address);
       })
       .then((result) => {
         console.log(result);
-        this.load();
+        console.log(this.state.longaddy);
+        this.onFetchFromOpenStates();
       })
       .catch((e) => {
         console.log(e);
@@ -53,20 +54,16 @@ export class Action extends Component {
       });
   };
 
-  async onLookup(address) {
-    var req = window.gapi.client.request({
-      path: "/civicinfo/v2/voterinfo/representatives",
-      params: { address: address },
-    });
-    req.execute(function (response) {
-      console.log(response);
-    });
-  }
-
-  async load() {
-    console.log(window.gapi.client);
-    window.gapi.client.setApiKey("AIzaSyD9MzWFIJ0TltXFjxRbZ38N5dRgTCxJKzE");
-    this.onLookup(this.state.longaddy);
+  async onLookup() {
+    var key = "AIzaSyD9MzWFIJ0TltXFjxRbZ38N5dRgTCxJKzE";
+    fetch(
+      "https://www.googleapis.com/civicinfo/v2/representatives?key=" +
+        key +
+        "&address=" +
+        this.state.address
+    )
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   }
 
   onFetchFromGeocode = () => {
