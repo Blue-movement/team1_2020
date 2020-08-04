@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Box, Button, Card, CardActions, CardMedia, CardHeader, Divider, Grid, Typography } from '@material-ui/core'
+import { Box, Button, Card, CardActions, CardHeader, Grid, Typography } from '@material-ui/core'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 
@@ -10,21 +10,13 @@ export class CardGridReddit extends Component {
     const { data } = this.props
     const grid = data ? data.map((post, index) =>  
       <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
-        <Card className = "feedGrid" style={{display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column', width: '100%'}}>
-          <CardHeader
+        <Card className = "feedGrid" style={{background: 'black', display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column', width: '100%'}}>
+	        <CardHeader
             className = "feedGrid"
             title={<Typography variant="h6">{post.title}</Typography>}
             subheader={<Typography variant="caption">by {post.author.name} on {post.created_utc}</Typography>}
             onClick={() => window.open('https://www.reddit.com' + post.permalink, '_blank')}
           />
-
-          {/* Screws up card height for posts that don't have pictures
-          {!post.url.includes('www.reddit.com') && !post.url.includes("v.redd.it") ? 
-            <CardMedia style={{height: '250px', width: '400px'}} image={post.url} /> : null 
-          } 
-          */}
-
-          <Divider variant="middle"/>
 
           <CardActions className = "feedGrid" style={{justifyContent: 'center'}}>
             {/* https://material-ui.com/components/material-icons/ */}

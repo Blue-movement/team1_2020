@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, Grid, Typography } from '@material-ui/core'
+import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Typography } from '@material-ui/core'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 
 
@@ -9,7 +9,7 @@ export class CardGridNews extends Component {
     const { data } = this.props
     const grid = data ? data.map((article, index) =>  
       <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
-        <Card className = "feedGrid" style={{display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+        <Card className = "feedGrid" style={{background: 'black', display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column'}}>
           <CardHeader
             className = "feedGrid"
             title={<Typography variant="subtitle2">{article.title}</Typography>}
@@ -26,8 +26,6 @@ export class CardGridNews extends Component {
               {article.description}
             </Typography>
           </CardContent>
-
-          <Divider variant="middle"/>
 
           <CardActions className = "feedGrid" style={{justifyContent: 'center'}}>
             {/* https://material-ui.com/components/material-icons/ */}

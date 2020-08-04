@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Avatar, Container, Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, LinearProgress, Grid, Typography } from '@material-ui/core'
+import { Avatar, Container, Button, Card, CardActions, CardContent, CardHeader, CardMedia, LinearProgress, Grid, Typography } from '@material-ui/core'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 
 
@@ -49,7 +49,7 @@ class CardGridInstagram extends Component {
 
     const grid = this.state.data && this.state.data.length > 0 ? this.state.data.map((post, index) =>
       <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
-        <Card className = "feedGrid" style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+        <Card className = "feedGrid" style={{background: 'black', display: 'inline-flex', flexDirection: 'column', justifyContent: 'space-between'}}>
           <CardHeader 
             className = "feedGrid"
             avatar={
@@ -72,8 +72,6 @@ class CardGridInstagram extends Component {
                 : null}
             </Typography>
           </CardContent>
-
-          <Divider variant="middle"/>
 
           <CardActions className = "feedGrid" style={{justifyContent: 'center'}}>
             {/* https://material-ui.com/components/material-icons/ */}

@@ -9,7 +9,7 @@ export class CardGridTwitter extends Component {
     const { data } = this.props
     const grid = data ? data.map((tweet, index) =>  
       <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
-        <Card className = "feedGrid" style={{display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+        <Card className = "feedGrid" style={{background: 'black', display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column'}}>
           <CardHeader
             className = "feedGrid"
             avatar={
@@ -20,7 +20,7 @@ export class CardGridTwitter extends Component {
             onClick={() => window.open('https://www.twitter.com/'+ tweet.user.screen_name, '_blank')}
           />
 
-          <Divider variant="middle"/>
+          <Divider style={{background: '#ffd415'}} variant="middle"/>
 
           <CardContent className = "feedGrid">
             <Typography className = "feedGrid" variant="body1">
@@ -28,7 +28,7 @@ export class CardGridTwitter extends Component {
             </Typography>
           </CardContent>
 
-          <Divider variant="middle"  />
+          <Divider style={{background: '#ffd415'}} variant="middle"  />
 
           <CardActions className = "feedGrid" style={{justifyContent: 'center'}}>
             {/* https://material-ui.com/components/material-icons/ */}
