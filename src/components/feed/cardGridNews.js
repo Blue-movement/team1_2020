@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, Grid, Typography } from '@material-ui/core'
+import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, Grid, Typography } from '@material-ui/core'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
 
 
@@ -9,28 +9,27 @@ export class CardGridNews extends Component {
     const { data } = this.props
     const grid = data ? data.map((article, index) =>  
       <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
-        <Card style={{display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+        <Card className = "feedGrid" style={{background: 'black', display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column'}}>
           <CardHeader
+            className = "feedGrid"
             title={<Typography variant="subtitle2">{article.title}</Typography>}
             subheader={<Typography variant="overline">{article.publishedAt}</Typography>}
             onClick={() => window.open(article.url, '_blank')}
           />
          
-          <CardMedia style={{height: '250px', width: '100%'}}
+          <CardMedia className = "feedGrid" style={{height: '250px', width: '100%'}}
             image={article.urlToImage ? article.urlToImage : 'https://blacklivesmatter.com/wp-content/themes/blm/dist/images/logo-black-lives-matter.png'}
           />
 
-          <CardContent>
-            <Typography variant="body2">
+          <CardContent className = "feedGrid">
+            <Typography className = "feedGrid" variant="body2">
               {article.description}
             </Typography>
           </CardContent>
 
-          <Divider variant="middle"/>
-
-          <CardActions style={{justifyContent: 'center'}}>
+          <CardActions className = "feedGrid" style={{justifyContent: 'center'}}>
             {/* https://material-ui.com/components/material-icons/ */}
-            <Button onClick={() => window.open(article.url, '_blank')} endIcon={<OpenInNewIcon />}>        
+            <Button style={{color:'#ffd415', backgroundColor: 'black'}} onClick={() => window.open(article.url, '_blank')} endIcon={<OpenInNewIcon />}>        
               {article.source.name}
             </Button>
           </CardActions>
