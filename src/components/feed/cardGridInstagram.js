@@ -49,8 +49,9 @@ class CardGridInstagram extends Component {
 
     const grid = this.state.data && this.state.data.length > 0 ? this.state.data.map((post, index) =>
       <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
-        <Card style={{display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column'}}>
-          <CardHeader
+        <Card className = "feedGrid" style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+          <CardHeader 
+            className = "feedGrid"
             avatar={
               <Avatar src={post.node.owner.profile_pic_url} />
             }
@@ -59,11 +60,11 @@ class CardGridInstagram extends Component {
             onClick={() => window.open('https://www.instagram.com/' + post.node.owner.username, '_blank')}
           />
 
-          <CardMedia style={{height: '250px', width: '100%'}}
+          <CardMedia className = "feedGrid" style={{height: '250px', width: '100%'}}
             image={post.node.display_url}
           />
 
-          <CardContent>
+          <CardContent className = "feedGrid">
             <Typography variant="body1">
               {post.node.edge_media_to_caption.edges[0] ? 
                 post.node.edge_media_to_caption.edges[0].node.text.length > 150 ?  
@@ -74,9 +75,9 @@ class CardGridInstagram extends Component {
 
           <Divider variant="middle"/>
 
-          <CardActions style={{justifyContent: 'center'}}>
+          <CardActions className = "feedGrid" style={{justifyContent: 'center'}}>
             {/* https://material-ui.com/components/material-icons/ */}
-            <Button onClick={() => window.open('https://www.instagram.com/p/' + post.node.shortcode, '_blank')} endIcon={<OpenInNewIcon />}>        
+            <Button style={{color:'#ffd415', backgroundColor: 'black'}} onClick={() => window.open('https://www.instagram.com/p/' + post.node.shortcode, '_blank')} endIcon={<OpenInNewIcon />}>        
               Instagram
             </Button>
           </CardActions>
@@ -90,7 +91,7 @@ class CardGridInstagram extends Component {
             {grid} 
           </Grid> : 
           <Container style={{width: '100vw', maxWidth: '1232px', padding: 0}}>
-            <LinearProgress style={{marginTop: 20, marginBottom: 20}} />
+            <LinearProgress style={{marginTop:0, marginBottom: 0}} />
           </Container> 
         }
       </div>

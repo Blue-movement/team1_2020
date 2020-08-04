@@ -10,8 +10,9 @@ export class CardGridReddit extends Component {
     const { data } = this.props
     const grid = data ? data.map((post, index) =>  
       <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
-        <Card style={{display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column', width: '100%'}}>
+        <Card className = "feedGrid" style={{display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column', width: '100%'}}>
           <CardHeader
+            className = "feedGrid"
             title={<Typography variant="h6">{post.title}</Typography>}
             subheader={<Typography variant="caption">by {post.author.name} on {post.created_utc}</Typography>}
             onClick={() => window.open('https://www.reddit.com' + post.permalink, '_blank')}
@@ -25,13 +26,13 @@ export class CardGridReddit extends Component {
 
           <Divider variant="middle"/>
 
-          <CardActions style={{justifyContent: 'center'}}>
+          <CardActions className = "feedGrid" style={{justifyContent: 'center'}}>
             {/* https://material-ui.com/components/material-icons/ */}
-            <Box style={{display: 'grid', justifyItems: 'center'}}>
-                <ThumbUpIcon /> 
-                <Typography variant="caption">{post.score} Upvotes</Typography>
+            <Box className = "feedGrid" style={{display: 'grid', justifyItems: 'center'}}>
+                <ThumbUpIcon style={{color:'#ffd415', backgroundColor: 'black'}}/> 
+                <Typography style={{color:'#ffd415', backgroundColor: 'black'}} variant="caption">{post.score} Upvotes</Typography>
             </Box>
-            <Button onClick={() => window.open('https://www.reddit.com' + post.permalink, '_blank')} endIcon={<OpenInNewIcon />}>        
+            <Button style={{color:'#ffd415', backgroundColor: 'black'}} onClick={() => window.open('https://www.reddit.com' + post.permalink, '_blank')} endIcon={<OpenInNewIcon />}>        
               Reddit
             </Button>
           </CardActions>

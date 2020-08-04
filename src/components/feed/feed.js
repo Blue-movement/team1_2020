@@ -6,6 +6,7 @@ import CardGridInstagram from './cardGridInstagram'
 import CardGridNews from './cardGridNews'
 import CardGridReddit from './cardGridReddit'
 import makeComponentFromTheme from '../../theme'
+import '../../index.css'
 
 const snoowrap = require('snoowrap'); // Reddit Wrapper
 const NUM_POSTS_PER_NETWORK = 4;
@@ -239,42 +240,42 @@ export class Feed extends Component {
 
     return (
       <Container>
-        <Typography variant="h4" style={{textAlign: 'center', marginTop: 40, marginBottom: 20}}>Latest BLM News</Typography>
+        <Typography variant="h4" className= "feedTitle" style={{textAlign: 'center', marginTop: 40, marginBottom: 20, fontWeight:'450'}}>Latest BLM News</Typography>
         {!this.state.isLoading && this.state.visiblePosts.news && this.state.visiblePosts.news.length > 0 ?
           <Box style={{display: 'flex'}}>
-            <CardGridNews data={this.state.visiblePosts.news} />
+            <CardGridNews className = "feedBox" data={this.state.visiblePosts.news} />
             <LoadMoreNewsButton />
           </Box> : <BLMLoader />}
 
         <Divider style= {{marginTop: 40, marginBottom: 40}} variant="middle"/>
 
-        <Typography variant="h4" style={{textAlign: 'center'}}>Top Reddit Posts</Typography>
+        <Typography variant="h4" className= "feedTitle" style={{textAlign: 'center', fontWeight:'450'}}>Top Reddit Posts</Typography>
         <Typography variant="subtitle1" style={{textAlign: 'center', marginBottom: 20}}>
-          From the <a href='https://www.reddit.com/r/BlackLivesMatter/' target="_blank" rel="noopener noreferrer">BlackLivesMatter</a> Subreddit
+          From the <a className="blmLink" href='https://www.reddit.com/r/BlackLivesMatter/' target="_blank" rel="noopener noreferrer">BlackLivesMatter</a> Subreddit
         </Typography>
         {!this.state.isLoading && this.state.visiblePosts.reddit && this.state.visiblePosts.reddit.length > 0 ?
           <Box style={{display: 'flex'}}>
-            <CardGridReddit data={this.state.visiblePosts.reddit} /> 
+            <CardGridReddit className = "feedBox" data={this.state.visiblePosts.reddit} /> 
             {this.state.redditPosts && this.state.redditPosts.length > 0 ? <LoadMoreRedditButton /> : null}
           </Box> : <BLMLoader />}
 
         <Divider style= {{marginTop: 40, marginBottom: 40}} variant="middle"/>
 
-        <Typography variant="h4" style={{textAlign: 'center', marginBottom: 40}}>Latest Social Media Posts</Typography>
+        <Typography variant="h4" className= "feedTitle" style={{textAlign: 'center', marginBottom: 40, fontWeight:'450'}}>Latest Social Media Posts</Typography>
         {!this.state.isLoading && this.state.visiblePosts.twitter && this.state.visiblePosts.twitter.length > 0 ?
           <Box style={{display: 'flex'}}>
-            <CardGridTwitter data={this.state.visiblePosts.twitter} /> 
+            <CardGridTwitter className = "feedBox" data={this.state.visiblePosts.twitter} /> 
             <LoadMoreTwitterButton />
           </Box> : <BLMLoader />}
         
         {!this.state.isLoading && this.state.visiblePosts.instagram && this.state.visiblePosts.instagram.length > 0 ?
           <Box style={{display: 'flex'}}>
-            <CardGridInstagram data={this.state.visiblePosts.instagram} /> 
+            <CardGridInstagram className = "feedBox" data={this.state.visiblePosts.instagram} /> 
             <LoadMoreInstagramButton />
           </Box> : <BLMLoader />}
 
         <Box style={{display: 'grid', justifyContent: 'center', marginBottom: '50px'}}>
-          <LoadMoreSocialMediaButton />
+          <LoadMoreSocialMediaButton/>
         </Box>
       </Container>
     )

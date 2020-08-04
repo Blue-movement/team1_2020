@@ -9,8 +9,9 @@ export class CardGridTwitter extends Component {
     const { data } = this.props
     const grid = data ? data.map((tweet, index) =>  
       <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
-        <Card style={{display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column'}}>
+        <Card className = "feedGrid" style={{display: 'inline-flex', justifyContent: 'space-between', flexDirection: 'column'}}>
           <CardHeader
+            className = "feedGrid"
             avatar={
               <Avatar src={tweet.user.profile_image_url} />
             }
@@ -21,17 +22,17 @@ export class CardGridTwitter extends Component {
 
           <Divider variant="middle"/>
 
-          <CardContent>
-            <Typography variant="body1">
+          <CardContent className = "feedGrid">
+            <Typography className = "feedGrid" variant="body1">
               {tweet.text}
             </Typography>
           </CardContent>
 
           <Divider variant="middle"  />
 
-          <CardActions style={{justifyContent: 'center'}}>
+          <CardActions className = "feedGrid" style={{justifyContent: 'center'}}>
             {/* https://material-ui.com/components/material-icons/ */}
-            <Button onClick={() => window.open('https://www.twitter.com/'+ tweet.user.screen_name + '/status/' + tweet.id_str, '_blank')} endIcon={<OpenInNewIcon />}>        
+            <Button style={{color:'#ffd415', backgroundColor: 'black'}} onClick={() => window.open('https://www.twitter.com/'+ tweet.user.screen_name + '/status/' + tweet.id_str, '_blank')} endIcon={<OpenInNewIcon />}>        
               Twitter
             </Button>         
           </CardActions>
