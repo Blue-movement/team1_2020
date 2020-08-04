@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Container, Button } from "@material-ui/core";
+import { withStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 import axios from "axios";
+
 import CustomizedInputBase from "./searchbar";
 import Geocode from "react-geocode";
 
@@ -8,6 +12,27 @@ const axiosOpenStatesGraphQL = axios.create({
   baseURL: "https://openstates.org/graphql/",
   headers: {
     "X-API-KEY": "ef262b58-a305-4bba-8cc5-764a9ced1405",
+  },
+});
+
+const styles = (theme) => ({
+  root: {
+    flexGrow: 1,
+  },
+  parent: {
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
+  },
+  paper: {
+    padding: theme.spacing(2),
+    textAlign: "center",
+    color: theme.palette.text.secondary,
+  },
+  statereps: {
+    height: theme.spacing(50),
+    weight: theme.spacing(50),
   },
 });
 
@@ -95,17 +120,12 @@ export class Action extends Component {
   }
 
   render() {
+    const { classes } = this.props;
     return (
-      <div>
+      <div className={classes.parent}>
         <Container>
-          <h1 style={{ textAlign: "center" }}>Action Page</h1>
-          Citizens dashboard that allows users to see all their representatives,
-          budgets, pending legislation at the national, state, county and city
-          level <br />
-          Users will be able to see the funding for programs <br />
-          Users will be able to contact their representatives easily <br />
-          Users will be able to see polling locations for primaries, general
-          elections and run-offs <br />
+          <h1>Find Your Representative</h1>
+          <h2>Please Type In Your Address</h2>
           <form onSubmit={this.onSubmit}>
             <CustomizedInputBase
               type="text"
@@ -126,15 +146,38 @@ export class Action extends Component {
                 </div>
               )}
             </div>
-
             <div>
               <Button onSubmit={this.onSubmit}>Submit</Button>
             </div>
           </form>
+          <Grid container spacing={3}>
+            <Grid item xs>
+              <div className={classes.statereps}>
+                <Paper className={classes.paper}>xs</Paper>
+              </div>
+            </Grid>
+            <Grid item xs>
+              <Paper className={classes.paper}>xs</Paper>
+            </Grid>
+            <Grid item xs>
+              <Paper className={classes.paper}>xs</Paper>
+            </Grid>
+          </Grid>
+          <Grid container spacing={3}>
+            <Grid item xs>
+              <Paper className={classes.paper}>xs</Paper>
+            </Grid>
+            <Grid item xs={6}>
+              <Paper className={classes.paper}>xs=6</Paper>
+            </Grid>
+            <Grid item xs>
+              <Paper className={classes.paper}>xs</Paper>
+            </Grid>
+          </Grid>
         </Container>
       </div>
     );
   }
 }
 
-export default Action;
+export default withStyles(styles)(Action);
