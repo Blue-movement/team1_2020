@@ -108,7 +108,7 @@ export class Protest extends Component {
           Text/input locations and return nearby protests <br/>
           Could also offer advice on keeping safe  <br/>
           And maybe text you live updates <br/>
-          <CardGridProtest></CardGridProtest>
+          <CardGridProtest cities={citiesarray}/>
         </Container>
       </div>
     )
