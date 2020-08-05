@@ -2,7 +2,7 @@
   "name": "blm_social_media",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://Blue-movement.github.io/team1_2020",
+  "homepage": "https://Blue-movement.github.io/team1_2020",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "@material-ui/icons": "^4.9.1",
@@ -20,13 +20,16 @@
     "graphql": "^15.3.0",
     "graphql-tag": "^2.10.4",
     "http2": "^3.3.7",
+    "marked": "^1.1.1",
+    "material-ui-search-bar": "^1.0.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-geocode": "^0.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "typescript": "^3.9.7",
-    "urql": "^1.9.8"
+    "urql": "^1.9.8",
+    "snoowrap": "^1.21.0"
   },
   "scripts": {
     "start": "react-scripts start",

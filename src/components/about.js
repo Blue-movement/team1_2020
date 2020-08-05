@@ -1,15 +1,22 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import marked from 'marked'
 import { Container } from '@material-ui/core';
 
 
 function About() {
+  const [markdown, setMarkdown] = useState(0);
+
+  useEffect(() => {
+    const readmePath = require("../README.md");
+    fetch(readmePath)
+      .then(response => response.text())
+      .then(text => setMarkdown(marked(text)))
+      .catch(err => console.log(err))
+    });
   return (
-    <div>
-      <Container>
-        <h1 style={{textAlign: 'center'}}>About Page</h1>
-        // TODO
-      </Container>
-    </div>
+    <Container>
+      <div dangerouslySetInnerHTML={{__html: markdown}} />
+    </Container>
   )
 }
 
