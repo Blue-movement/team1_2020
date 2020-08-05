@@ -2,8 +2,10 @@
 
 # BLM Social Media
 Project for team 1's 2020 IBM Blue Movement Bootcamp
-
-
+## Description
+This website seeks to complement the existing BLM website by providing an extended set of features not currently meet by the solution including:
+- Social Media Linkages
+- Information for Political Reperesentatives & State Bills Up for debate
 ### Technologies
 * [React](https://reactjs.org/) - Frontend: JavaScript library for creating web apps!
 * [node.js](http://nodejs.org) - Evented I/O for the backend
