@@ -82,7 +82,10 @@ componentDidMount(){
     const BLMLoader = makeComponentFromTheme(<LinearProgress color="secondary" style={{marginTop: 20, marginBottom: 20}} />)
     return (
       <Container>
-        <Typography variant="h4" className= "feedTitle" style={{textAlign: 'center', marginTop: 40, marginBottom: 20, fontWeight:'450'}}>Black owned businesses</Typography>
+        <Typography variant="h4" className="feedTitle" style={{textAlign: 'center', marginTop: 40, fontWeight:'450'}}>Black-owned Businesses</Typography>
+        <Typography variant="subtitle2" style={{textAlign: 'center', marginBottom: 20}}>
+          Local businesses that are run by black families or support the <span className="feedTitle" style={{fontWeight:'450'}}>Black Lives Matter</span> movement
+        </Typography>
         {this.state.blackBusinesses && this.state.blackBusinesses.length > 0 ? 
           <CardGridBlackBusiness data={this.state.blackBusinesses} /> : <BLMLoader />
         }

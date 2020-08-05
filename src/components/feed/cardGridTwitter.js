@@ -22,7 +22,7 @@ export class CardGridTwitter extends Component {
 
           <Divider style={{background: '#ffd415'}} variant="middle"/>
 
-          <CardContent className = "feedGrid">
+          <CardContent className = "feedGrid" style={{margin: 'auto 0'}}>
             <Typography className = "feedGrid" variant="body1">
               {tweet.text}
             </Typography>
@@ -30,7 +30,7 @@ export class CardGridTwitter extends Component {
 
           <Divider style={{background: '#ffd415'}} variant="middle"  />
 
-          <CardActions className = "feedGrid" style={{justifyContent: 'center'}}>
+          <CardActions className="feedGrid" style={{justifyContent: 'center'}}>
             {/* https://material-ui.com/components/material-icons/ */}
             <Button style={{color:'#ffd415', backgroundColor: 'black'}} onClick={() => window.open('https://www.twitter.com/'+ tweet.user.screen_name + '/status/' + tweet.id_str, '_blank')} endIcon={<OpenInNewIcon />}>        
               Twitter

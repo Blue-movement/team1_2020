@@ -155,11 +155,13 @@ export class Protest extends Component {
   
   render() {
     
-
     return (
       <div>
         <Container>
-          <h1 style={{textAlign: 'center'}}>Protest Page</h1>
+          <Typography variant="h4" className= "feedTitle" style={{textAlign: 'center', marginTop: 40, fontWeight:'450'}}>nationwide Black Live Matter chapters</Typography>
+          <Typography variant="subtitle2" style={{textAlign: 'center', marginBottom: 20}}>
+            As charted by the official <a className="blmLink" href="https://blacklivesmatter.com/chapters/" target="_blank" rel="noopener noreferrer">BlackLivesMatter</a> website.
+          </Typography>
 
           <SearchBar
             placeholder="Search for a chapter..."
@@ -171,9 +173,9 @@ export class Protest extends Component {
 
           {
             this.state.chaptersToShow.length > 0 ? <CardGridProtest chapters={this.state.chaptersToShow}/> :
-            <Typography style={{textAlign: 'center'}}>
-              No chapters found.<br/>
-              Try looking on the official BlackLivesMatter <a href="https://blacklivesmatter.com/chapters/" target="_blank">chapters</a> page.
+            <Typography variant="h6" className= "feedTitle" style={{textAlign: 'center'}}>
+              no chapters found.<br/>
+              try looking on the official BlackLivesMatter <a className="blmLink" href="https://blacklivesmatter.com/chapters/" target="_blank" rel="noopener noreferrer">chapters</a> page.
             </Typography>
           }
         </Container>

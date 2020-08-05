@@ -230,9 +230,9 @@ export class Feed extends Component {
   
   render() {
     const BLMLoader = makeComponentFromTheme(<LinearProgress color="secondary" style={{marginTop: 20, marginBottom: 20}} />)
-    const LoadMoreSocialMediaButton = makeComponentFromTheme(<Button variant="outlined" color="secondary" onClick={() => this.loadMorePosts()}>Load More Social Media</Button>)
+    const LoadMoreSocialMediaButton = makeComponentFromTheme(<Button variant="outlined" color="secondary" className="blmLink" onClick={() => this.loadMorePosts()}>Load More Social Media</Button>)
     const generateLoadMoreButton = loadFunction => makeComponentFromTheme(
-      <IconButton color="secondary" onClick={loadFunction}>
+      <IconButton className="blmLink" color="secondary" onClick={loadFunction}>
         <NavigateNextIcon />
       </IconButton>
       )
@@ -244,7 +244,7 @@ export class Feed extends Component {
 
     return (
       <Container>
-        <Typography variant="h4" className= "feedTitle" style={{textAlign: 'center', marginTop: 40, marginBottom: 20, fontWeight:'450'}}>Latest BLM News</Typography>
+        <Typography variant="h4" className= "feedTitle" style={{textAlign: 'center', marginTop: 40, marginBottom: 20, fontWeight:'450'}}>Latest Black Lives Matter News</Typography>
         {!this.state.isLoading && this.state.visiblePosts.news && this.state.visiblePosts.news.length > 0 ?
           <Box style={{display: 'flex'}}>
             <CardGridNews className = "feedBox" data={this.state.visiblePosts.news} />
@@ -254,8 +254,8 @@ export class Feed extends Component {
         <Divider style= {{marginTop: 40, marginBottom: 40}} variant="middle"/>
 
         <Typography variant="h4" className= "feedTitle" style={{textAlign: 'center', fontWeight:'450'}}>Top Reddit Posts</Typography>
-        <Typography variant="subtitle1" style={{textAlign: 'center', marginBottom: 20}}>
-          From the <a className="blmLink" href='https://www.reddit.com/r/BlackLivesMatter/' target="_blank" rel="noopener noreferrer">BlackLivesMatter</a> Subreddit
+        <Typography variant="subtitle1" className="feedTitle" style={{textAlign: 'center', marginBottom: 20, fontWeight:'450'}}>
+          from the <a className="blmLink" href='https://www.reddit.com/r/BlackLivesMatter/' target="_blank" rel="noopener noreferrer">BlackLivesMatter</a> subreddit
         </Typography>
         {!this.state.isLoading && this.state.visiblePosts.reddit && this.state.visiblePosts.reddit.length > 0 ?
           <Box style={{display: 'flex'}}>
@@ -265,7 +265,8 @@ export class Feed extends Component {
 
         <Divider style= {{marginTop: 40, marginBottom: 40}} variant="middle"/>
 
-        <Typography variant="h4" className= "feedTitle" style={{textAlign: 'center', marginBottom: 40, fontWeight:'450'}}>Latest Social Media Posts</Typography>
+        <Typography variant="h4" className="feedTitle" style={{textAlign: 'center', fontWeight:'450', paddingBottom: '0'}}>Latest Social Media Posts</Typography>
+        <Typography variant="subtitle1" className="feedTitle" style={{textAlign: 'center', marginBottom: 20, fontWeight:'450'}}>with the #BlackLivesMatter hashtag </Typography>
         {!this.state.isLoading && this.state.visiblePosts.twitter && this.state.visiblePosts.twitter.length > 0 ?
           <Box style={{display: 'flex'}}>
             <CardGridTwitter className = "feedBox" data={this.state.visiblePosts.twitter} /> 

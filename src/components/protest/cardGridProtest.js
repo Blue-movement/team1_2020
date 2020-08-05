@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card, CardActions, CardHeader, CardMedia, Divider, IconButton, Grid } from '@material-ui/core'
-import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import { Button, Card, CardActions, CardHeader, CardMedia, IconButton, Grid, Typography } from '@material-ui/core'
 import EmailIcon from '@material-ui/icons/Email';
 import TwitterIcon from '@material-ui/icons/Twitter';
 import FacebookIcon from '@material-ui/icons/Facebook';
@@ -17,7 +16,7 @@ export class CardGridProtest extends Component {
           <CardHeader
             className="feedGrid"
             title={chapter.city !== '' ? chapter.city : chapter.state}
-            subheader={chapter.state}
+            subheader={<Typography className="feedGrid">{chapter.state}</Typography>}
           />
             
           <CardMedia
@@ -26,10 +25,8 @@ export class CardGridProtest extends Component {
             image={chapter.image}
           />
           
-          <Divider style={{background: '#ffd415'}} variant="middle"/>
-
-          <CardActions style={{justifyContent: 'center'}}>
-            {chapter.website ? <Button style={{color:'#ffd415', backgroundColor: 'black'}} endIcon={<OpenInNewIcon />}
+          <CardActions className="feedGrid" style={{justifyContent: 'center'}}>
+            {chapter.website ? <Button style={{color:'#ffd415', backgroundColor: 'black'}}
               onClick={() => window.open('https://www.'+ chapter.website, '_blank')}>        
               Website
             </Button> : null }

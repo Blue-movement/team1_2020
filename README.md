@@ -89,17 +89,20 @@ $ ./run.sh
     |   |   |   ├── cardGridReddit.js       # Generates cards from Reddit
     |   |   |   ├── cardGridTwitter.js      # Generates cards from Twitter
     |   |   |   └── feed.js                 # Calls APIs and shows result
-    |   |   ├── uplift               # Uplift component
+    |   |   ├── protest             # Protest component
+    |   |   |   ├── cardGridProtest.js      # Generates cards for BLM chapters
+    |   |   |   └── protest.js              # Defines BLM chapters and displays them
+    |   |   ├── uplift              # Uplift component
     |   |   |   ├── cardGridBlackBusiness.js    # Generates Business cards
     |   |   |   └── uplift.js                   # Calls Yelp API and shows result
     |   |   ├── 404.js              # 404 component
     |   |   ├── about.js            # About component
     |   |   ├── action.js           # Action component
-    |   |   ├── navbar.js           # Navbar component
-    |   |   └── protest.js          # Protest component
+    |   |   └── navbar.js           # Navbar component
     │   ├── App.js      # Main Component responsible for routing
     │   ├── index.css   # Main CSS File
     │   ├── theme.js    # Takes a component and applies a theme to it
+    │   ├── README.md   # Copy of this README file used to generate HTML for about page
     │   └── ...
     ├── README.md       # The file you are currently reading
     ├── run.sh          # Bash script to run the web application

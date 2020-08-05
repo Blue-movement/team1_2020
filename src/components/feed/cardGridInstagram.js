@@ -60,11 +60,11 @@ class CardGridInstagram extends Component {
             onClick={() => window.open('https://www.instagram.com/' + post.node.owner.username, '_blank')}
           />
 
-          <CardMedia className = "feedGrid" style={{height: '250px', width: '100%'}}
+          <CardMedia className = "feedGrid" style={{margin: 'auto 0', height: '250px', width: '100%'}}
             image={post.node.display_url}
           />
 
-          <CardContent className = "feedGrid">
+          <CardContent className = "feedGrid" style={{margin: 'auto 0'}}>
             <Typography variant="body1">
               {post.node.edge_media_to_caption.edges[0] ? 
                 post.node.edge_media_to_caption.edges[0].node.text.length > 150 ?  

@@ -17,12 +17,12 @@ export class CardGridNews extends Component {
             onClick={() => window.open(article.url, '_blank')}
           />
          
-          <CardMedia className = "feedGrid" style={{height: '250px', width: '100%'}}
+          <CardMedia className = "feedGrid" style={{margin: 'auto 0', height: '250px', width: '100%'}}
             image={article.urlToImage ? article.urlToImage : 'https://blacklivesmatter.com/wp-content/themes/blm/dist/images/logo-black-lives-matter.png'}
           />
 
-          <CardContent className = "feedGrid">
-            <Typography className = "feedGrid" variant="body2">
+          <CardContent className="feedGrid" style={{margin: 'auto 0'}}>
+            <Typography className= "feedGrid" variant="body2">
               {article.description}
             </Typography>
           </CardContent>
