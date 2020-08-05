@@ -14,10 +14,10 @@ function App() {
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Navbar />
       <Switch>
-        <Route exact path='/'     component={Feed} />
+        <Route exact path='/'     component={Uplift} />
         <Route path='/action'     component={Action} />
         <Route path='/protest'    component={Protest} />
-        <Route path='/uplift'     component={Uplift} />
+        <Route path='/feed'       component={Feed} />
         <Route path='/about'      component={About} />
         <Route                    component={NotFound} />
       </Switch>
