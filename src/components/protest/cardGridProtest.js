@@ -109,3 +109,4 @@ export class CardGridProtest extends Component {
   }
 }
   
+export default CardGridProtest
