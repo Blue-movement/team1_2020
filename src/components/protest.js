@@ -23,7 +23,6 @@ export class Protest extends Component {
           And maybe text you live updates <br/>
         </Container>
       </div>
-  );
     )
   }
 }
