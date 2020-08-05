@@ -11,7 +11,7 @@ import SimpleTable from "./table";
 const axiosOpenStatesGraphQL = axios.create({
   baseURL: "https://openstates.org/graphql/",
   headers: {
-    "X-API-KEY": "ef262b58-a305-4bba-8cc5-764a9ced1405",
+    "X-API-KEY": process.env.REACT_APP_OPENSTATES_API_KEY,
   },
 });
 
@@ -65,7 +65,7 @@ export class Action extends Component {
   }
 
   componentDidMount() {
-    Geocode.setApiKey("AIzaSyACD21gEm0jdeRklb6qo4O31k39x9brz8U");
+    Geocode.setApiKey(process.env.REACT_APP_GOOGLE_GEOCODE_API_KEY);
     Geocode.setLanguage("en");
     Geocode.enableDebug();
   }
@@ -76,12 +76,15 @@ export class Action extends Component {
       .then((response) => {
         if (response.status === "OK") {
           const { lat, lng } = response.results[0].geometry.location;
+          let state = response.results[0].address_components.filter(
+            component => component.types && component.types.includes("administrative_area_level_1")
+          )[0].long_name
           this.setState(
             {
               lati: lat,
               logi: lng,
               longaddy: response.results[0].formatted_address,
-              usstate: response.results[0].address_components[5].long_name,
+              usstate: state,
             },
             () => {
               this.onFetchFromOpenStates();
@@ -112,7 +115,6 @@ export class Action extends Component {
           ltgov: data.officials[6],
           isready: true,
         });
-        console.log(data);
       });
   }
 
@@ -153,7 +155,6 @@ export class Action extends Component {
                 url
               }
             }
-            
             sources {
               url
               note
@@ -168,7 +169,6 @@ export class Action extends Component {
       axiosOpenStatesGraphQL
         .post("", { query: GET_QUERY, variables: { juris } })
         .then((result) => {
-          console.log(result);
           this.setState({
             bills: result.data.data.search_1.edges,
             isready1: true,
