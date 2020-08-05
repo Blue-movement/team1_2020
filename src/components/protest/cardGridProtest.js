@@ -9,10 +9,8 @@ const useStyles = makeStyles({
   },
 });
 
-export default function ImgMediaCard() {
-  const classes = useStyles();
-  
 export class CardGridProtest extends Component {
+    const classes = useStyles();
     render() {
       <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
         <Card className={classes.root}>
