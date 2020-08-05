@@ -2,10 +2,14 @@
 
 # BLM Social Media
 Project for team 1's 2020 IBM Blue Movement Bootcamp
-## Description
+
+### Description
 This website seeks to complement the existing BLM website by providing an extended set of features not currently meet by the solution including:
-- Social Media Linkages
+- Social Media posts and news articles related to Black Lives Matter movement
 - Information for Political Reperesentatives & State Bills Up for debate
+- Local and national Black Lives Matter movement chapters and their social media links
+- Local businesses owned by black owners
+
 ### Technologies
 * [React](https://reactjs.org/) - Frontend: JavaScript library for creating web apps!
 * [node.js](http://nodejs.org) - Evented I/O for the backend
@@ -16,6 +20,10 @@ This website seeks to complement the existing BLM website by providing an extend
 * [Twitter](https://developer.twitter.com/en/docs)
 * [News API](https://newsapi.org/)
 * [Instagram API](https://www.instagram.com/developer/)
+* [Open States](https://docs.openstates.org/en/latest/api/v2/)
+* [Google Geolocation](https://developers.google.com/maps/documentation/geolocation/overview)
+* [Google Civic Information](https://developers.google.com/civic-information)
+* [Yelp](https://www.yelp.com/developers)
 
 #### References
 * [Material Studies](https://material.io/design/material-studies/about-our-material-studies.html)
@@ -37,11 +45,15 @@ In order to run locally, you need to create an .env file in the root folder and 
 * REACT_APP_REDDIT_CLIENT_ID
 * REACT_APP_REDDIT_CLIENT_SECRET
 * REACT_APP_REDDIT_REFRESH_TOKEN
+* REACT_APP_YELP_BEARER_TOKEN
+* REACT_APP_GOOGLE_MAPS_API_KEY
 
 Environmental variable REACT_APP_TWITTER_BEARER_TOKEN can be obtained from [Twitter API](https://developer.twitter.com/en/docs/basics/authentication/oauth-2-0/bearer-tokens)\
 Environmental variable REACT_APP_NEWS_API_KEY can be obtained from [News API](https://www.newsapi.org/)\
 Environmental variables REACT_APP_REDDIT_CLIENT_ID and REACT_APP_REDDIT_CLIENT_SECRET can be obtained from [Reddit Developer Page](https://www.reddit.com/prefs/apps)\
 Environmental variable REACT_APP_REDDIT_REFRESH_TOKEN can be obtained from [reddit-oauth-helper](https://github.com/not-an-aardvark/reddit-oauth-helper)\
+Environmental variable REACT_APP_YELP_BEARER_TOKEN can be obtained from [Yelp API](https://www.yelp.com/developers)\
+Environmental variable REACT_APP_GOOGLE_MAPS_API_KEY can be obtained from [Google Geolocation API](https://developers.google.com/maps/documentation/geolocation/overview)\
 
 See [sample.env](https://github.com/Blue-movement/team1_2020/blob/master/.sample_env) for an example.
 
