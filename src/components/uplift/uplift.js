@@ -58,7 +58,7 @@ componentDidMount(){
         const crd=pos.coords
         
         this.setState({longitude:crd.longitude,latitude:crd.latitude,accuracy:crd.accuracy})
-        const mapsurl="https://maps.googleapis.com/maps/api/geocode/json?key="+process.env.REACT_APP_GOOGLE_MAPS_API_KEY+"&latlng="+this.state.latitude.toString()+","+this.state.longitude.toString()
+        const mapsurl="https://maps.googleapis.com/maps/api/geocode/json?key="+process.env.REACT_APP_GOOGLE_GEOLOCATION_API_KEY+"&latlng="+this.state.latitude.toString()+","+this.state.longitude.toString()
         fetch(mapsurl).then((response)=> response.json()).then((data)=>{
            const localcity=data.results[2].address_components[1]["long_name"]
            this.setState({city:localcity})
