@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import { Container, Button } from "@material-ui/core";
+import { Container } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
-import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import axios from "axios";
-
 import CustomizedInputBase from "./searchbar";
 import Geocode from "react-geocode";
+import ActionChild from "./actionchild";
+import SimpleTable from "./table";
 
 const axiosOpenStatesGraphQL = axios.create({
   baseURL: "https://openstates.org/graphql/",
@@ -19,20 +19,25 @@ const styles = (theme) => ({
   root: {
     flexGrow: 1,
   },
+  search: {
+    padding: theme.spacing(4),
+    display: "flex",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
+  },
   parent: {
     textAlign: "center",
     justifyContent: "center",
     alignItems: "center",
     alignContent: "center",
   },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: "center",
-    color: theme.palette.text.secondary,
+  column: {
+    padding: theme.spacing(10),
   },
-  statereps: {
-    height: theme.spacing(50),
-    weight: theme.spacing(50),
+  row: {
+    paddingTop: theme.spacing(10),
   },
 });
 
@@ -42,9 +47,20 @@ export class Action extends Component {
 
     this.state = {
       address: null,
+      bills: null,
+      usstate: null,
       lati: null,
       logi: null,
       longaddy: null,
+      fedrep: null,
+      staterep: null,
+      statesen: null,
+      fedsen1: null,
+      fedsen2: null,
+      gov: null,
+      ltgov: null,
+      isready: false,
+      isready1: false,
     };
   }
 
@@ -65,6 +81,7 @@ export class Action extends Component {
               lati: lat,
               logi: lng,
               longaddy: response.results[0].formatted_address,
+              usstate: response.results[0].address_components[5].long_name,
             },
             () => {
               this.onFetchFromOpenStates();
@@ -84,30 +101,78 @@ export class Action extends Component {
         this.state.longaddy
     )
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        this.setState({
+          staterep: data.officials[7],
+          statesen: data.officials[8],
+          fedrep: data.officials[4],
+          fedsen1: data.officials[2],
+          fedsen2: data.officials[3],
+          gov: data.officials[5],
+          ltgov: data.officials[6],
+          isready: true,
+        });
+        console.log(data);
+      });
   }
 
   async onFetchFromOpenStates() {
-    let lat = this.state.lati;
-    let lng = this.state.logi;
-    let GET_QUERY = `
-    query ($lat: Float, $lng: Float)
-    {
-      people(latitude: $lat , longitude: $lng, first: 100) {
+    let juris = this.state.usstate;
+    let GET_QUERY = ` query($juris: String)   {
+      search_1: bills(first: 5, jurisdiction: $juris) {
         edges {
           node {
-            name
+            id
+            identifier
+            title
+            classification
+            updatedAt
+            createdAt
+            legislativeSession {
+              identifier
+              jurisdiction {
+                name
+              }
+            }
+            actions {
+              date
+              description
+              classification
+            }
+            documents {
+              date
+              note
+              links {
+                url
+              }
+            }
+            versions {
+              date
+              note
+              links {
+                url
+              }
+            }
+            
+            sources {
+              url
+              note
+                
+            }
           }
         }
       }
-    }
-  `;
+    }`;
 
     return new Promise((resolve, reject) => {
       axiosOpenStatesGraphQL
-        .post("", { query: GET_QUERY, variables: { lat, lng } })
+        .post("", { query: GET_QUERY, variables: { juris } })
         .then((result) => {
           console.log(result);
+          this.setState({
+            bills: result.data.data.search_1.edges,
+            isready1: true,
+          });
           resolve(true);
           return result;
         })
@@ -124,56 +189,51 @@ export class Action extends Component {
     return (
       <div className={classes.parent}>
         <Container>
-          <h1>Find Your Representative</h1>
+          <h1>Find Your Representatives</h1>
           <h2>Please Type In Your Address</h2>
-          <form onSubmit={this.onSubmit}>
-            <CustomizedInputBase
-              type="text"
-              name="address"
-              value={this.state.address || ""}
-              onChange={(event) =>
-                this.setState({ address: event.target.value })
-              }
-            />
+          <div className={classes.search}>
+            <form onSubmit={this.onSubmit}>
+              <CustomizedInputBase
+                type="text"
+                name="address"
+                value={this.state.address || ""}
+                onChange={(event) =>
+                  this.setState({ address: event.target.value })
+                }
+              />
+            </form>
+          </div>
+          {this.state.isready && (
             <div>
-              {this.state.lat ? (
-                <div>
-                  <h1>You've Got Mail</h1>
-                </div>
-              ) : (
-                <div>
-                  <h1>Try Again</h1>
-                </div>
-              )}
+              <Grid container spacing={4}>
+                <ActionChild
+                  figure={this.state.fedrep}
+                  title={"Federal Representative"}
+                />
+                <ActionChild
+                  figure={this.state.fedsen1}
+                  title={"Federal Senator"}
+                />
+                <ActionChild
+                  figure={this.state.fedsen2}
+                  title={"Federal Senator"}
+                />
+                <ActionChild
+                  figure={this.state.staterep}
+                  title={"State Representative"}
+                />
+              </Grid>
+              <Grid container spacing={3}>
+                <ActionChild
+                  figure={this.state.statesen}
+                  title={"State Senator"}
+                />
+                <ActionChild figure={this.state.gov} title={"Governor"} />
+                <ActionChild figure={this.state.ltgov} title={"Lt. Governor"} />
+              </Grid>
             </div>
-            <div>
-              <Button onSubmit={this.onSubmit}>Submit</Button>
-            </div>
-          </form>
-          <Grid container spacing={3}>
-            <Grid item xs>
-              <div className={classes.statereps}>
-                <Paper className={classes.paper}>xs</Paper>
-              </div>
-            </Grid>
-            <Grid item xs>
-              <Paper className={classes.paper}>xs</Paper>
-            </Grid>
-            <Grid item xs>
-              <Paper className={classes.paper}>xs</Paper>
-            </Grid>
-          </Grid>
-          <Grid container spacing={3}>
-            <Grid item xs>
-              <Paper className={classes.paper}>xs</Paper>
-            </Grid>
-            <Grid item xs={6}>
-              <Paper className={classes.paper}>xs=6</Paper>
-            </Grid>
-            <Grid item xs>
-              <Paper className={classes.paper}>xs</Paper>
-            </Grid>
-          </Grid>
+          )}
+          {this.state.isready1 && <SimpleTable bills={this.state.bills} />}
         </Container>
       </div>
     );
