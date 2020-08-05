@@ -13,25 +13,25 @@ const cities = [
     instagram: 'https://www.instagram.com/BLMLosAngeles/'
   },
   { city: 'Boston',
-    twitter: 'twitter.com/BLMBoston',
-    website: 'BlackLivesMatterBoston.org',
+    twitter: 'https://twitter.com/BLMBoston',
+    website: 'https://blacklivesmatterboston.org',
     email: 'boston@blacklivesmatter.com',
-    facebook: 'facebook.com/BLMBoston',
+    facebook: 'https://www.facebook.com/BlmBoston/',
     instagram: null
   },
   { city: 'Chicago',
-    twitter: 'twitter.com/BLMChi',
-    website: 'BlackLivesMatterChicago.com',
+    twitter: 'https://twitter.com/BLMChi',
+    website: 'https://www.blacklivesmatterchicago.com/',
     email: null,
-    facebook: 'facebook.com/BLMChi',
-    instagram: 'instagram.com/BLMChi'
+    facebook: 'https://www.facebook.com/BLMChi',
+    instagram: 'https://www.instagram.com/BLMChi/'
   },
   { city: 'DC',
-    twitter: 'twitter.com/DMVBlackLives',
-    website: 'BlackLivesMatterDMV.org',
+    twitter: 'https://twitter.com/DMVBlackLives',
+    website: 'http://www.blacklivesmatterdmv.org/',
     email: 'info@dcblm.org',
-    facebook: 'facebook.com/BLMDC',
-    instagram: 'instagram.com/BlackLivesMatterDC'
+    facebook: 'https://www.facebook.com/BLMDC',
+    instagram: 'https://www.instagram.com/BlackLivesMatterDC/'
   },
   { city: 'Denver',
     twitter: 'twitter.com/BLM5280',
