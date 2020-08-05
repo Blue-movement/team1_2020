@@ -20,27 +20,24 @@ export class CardGridBlackBusiness extends Component {
           />
 
           <CardContent>
-          <Typography display="block" variant="caption">
-              {business.price}
-            </Typography>
             <Typography display="block" variant="caption">
-              {"Rating:  "+business.rating+ " \n"}
-            </Typography>
-            
-            
-        <Typography variant="subtitle2">{business.location.address1}</Typography>
-        <Typography variant="subtitle2">{business?"Phone Number:"+business.display_phone :""}</Typography>
-        <Typography variant="subtitle2" >{Math.round(business.distance)+" miles away"}</Typography>
-        <Typography>
-            {business.transactions.map((item)=>{
-                return(<Typography variant="overline">{item+"    "}</Typography>)
-            })}
+                {business.price}
+              </Typography>
+              <Typography display="block" variant="caption">
+                {"Rating:  "+business.rating+ " \n"}
+              </Typography>
+              
+            <Typography variant="subtitle2">{business.location.address1}</Typography>
+            <Typography variant="subtitle2">{business?"Phone Number:"+business.display_phone :""}</Typography>
+            <Typography variant="subtitle2" >{Math.round(business.distance)+" miles away"}</Typography>
+            <Typography>
+              {business.transactions.map((item, idx)=>{
+                  return(<Typography variant="overline" key={idx}>{item+"    "}</Typography>)
+              })}
             </Typography>
           </CardContent>
 
           <Divider variant="middle"/>
-
-         
         </Card>
       </Grid>) : null
 

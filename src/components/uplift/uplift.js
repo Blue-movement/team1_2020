@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { Container } from '@material-ui/core';
+import { Container, LinearProgress, Typography } from '@material-ui/core';
+import makeComponentFromTheme from '../../theme'
 import CardGridBlackBusiness from './cardGridBlackBusiness';
+import '../../index.css'
 
 
 export class Uplift extends Component {
@@ -77,11 +79,13 @@ componentDidMount(){
 }
 
   render() {
+    const BLMLoader = makeComponentFromTheme(<LinearProgress color="secondary" style={{marginTop: 20, marginBottom: 20}} />)
     return (
       <Container>
-        <h1>Black owned businesses</h1>
-        <CardGridBlackBusiness data={this.state.blackBusinesses}></CardGridBlackBusiness>
-        yelp sourced
+        <Typography variant="h4" className= "feedTitle" style={{textAlign: 'center', marginTop: 40, marginBottom: 20, fontWeight:'450'}}>Black owned businesses</Typography>
+        {this.state.blackBusinesses && this.state.blackBusinesses.length > 0 ? 
+          <CardGridBlackBusiness data={this.state.blackBusinesses} /> : <BLMLoader />
+        }
       </Container>
     )
   }
