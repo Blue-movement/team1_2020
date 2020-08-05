@@ -39,7 +39,7 @@ export class Protest extends Component {
             component="img"
             alt="Contemplative Reptile"
             height="140"
-            image="/static/images/cards/contemplative-reptile.jpg"
+            image="img/BLM-logo.png"
             title="Contemplative Reptile"
           />
           <CardContent>
