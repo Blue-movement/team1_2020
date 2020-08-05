@@ -14,15 +14,16 @@ export default function ImgMediaCard() {
   
 export class CardGridProtest extends Component {
     render() {
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="BLM Logo"
-            height="140"
-            image_url="https://blacklivesmatter.com/wp-content/themes/blm/dist/images/logo-black-lives-matter.png"
-            title="Contemplative Reptile"
-          />
+      <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
+        <Card className={classes.root}>
+          <CardActionArea>
+            <CardMedia
+             component="img"
+             alt="BLM Logo"
+             height="140"
+             image_url="https://blacklivesmatter.com/wp-content/themes/blm/dist/images/logo-black-lives-matter.png"
+             title="Contemplative Reptile"
+           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="h2">
               Police Brutality Protest 
@@ -97,6 +98,13 @@ export class CardGridProtest extends Component {
           </Button>
         </CardActions>
       </Card>
+   </Grid>) : null
+  
+  
+  return (
+      <Grid container spacing={3}>
+        {grid}
+      </Grid>
     );
   }
 }
