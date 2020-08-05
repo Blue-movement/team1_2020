@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container } from '@material-ui/core';
-import CardGridBlackBusiness from './uplift/cardGridBlackBusiness';
+import CardGridBlackBusiness from './cardGridBlackBusiness';
 
 
 export class Uplift extends Component {
@@ -38,10 +38,6 @@ export class Uplift extends Component {
       })
     .then(data =>  this.setState({blackBusinesses:data["businesses"]})  )
     .catch(error => console.log('error:', error));
-  
-    
-    
-
   }
   
   
@@ -78,26 +74,15 @@ componentDidMount(){
       
   }, options);
 
-
 }
 
   render() {
     return (
-      <div>
-        <Container>
-          <h1 style={{textAlign: 'center'}}>Uplift Page</h1>
-          Black people talking about and black people achievements: Ideas, businesses, apps, etc. <br/>
-          Encourage positivity within the black community <br/>
-          Can also sign up for positive affirmations to be sent to you(chat bot or texting platform)? <br/>
-
-      
-
-      <h1>Black owned businesses</h1>
-      <CardGridBlackBusiness data={this.state.blackBusinesses}></CardGridBlackBusiness>
-      yelp sourced
+      <Container>
+        <h1>Black owned businesses</h1>
+        <CardGridBlackBusiness data={this.state.blackBusinesses}></CardGridBlackBusiness>
+        yelp sourced
       </Container>
-
-      </div>
     )
   }
 }

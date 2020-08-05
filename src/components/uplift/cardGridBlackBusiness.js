@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, Grid, Typography } from '@material-ui/core'
-import OpenInNewIcon from '@material-ui/icons/OpenInNew'
+import { Card, CardContent, CardHeader, CardMedia, Divider, Grid, Typography } from '@material-ui/core'
 
 
 export class CardGridBlackBusiness extends Component {
