@@ -48,7 +48,7 @@ const SimpleTable = (props) => {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.name}>
+            <TableRow key={row.bid}>
               <TableCell component="th" scope="row">
                 {row.bid}
               </TableCell>
