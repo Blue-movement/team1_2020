@@ -1,102 +1,56 @@
 import React, { Component } from 'react'
-import { Button, Card, CardActions, CardContent, CardHeader, CardMedia, Divider, Grid, Typography } from '@material-ui/core'
+import { Button, Card, CardActions, CardHeader, CardMedia, Divider, IconButton, Grid } from '@material-ui/core'
 import OpenInNewIcon from '@material-ui/icons/OpenInNew'
-import CardActionArea from '@material-ui/core/CardActionArea';
+import EmailIcon from '@material-ui/icons/Email';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import InstagramIcon from '@material-ui/icons/Instagram';
 
-const useStyles = makeStyles({
-  root: {
-    maxWidth: 345,
-  },
-});
 
 export class CardGridProtest extends Component {
-    const classes = useStyles();
-    const cities = this.props;
+    
     render() {
-      const grid = <Grid item xs={3} key={index} style={{marginBottom: 30, display: 'flex'}}>
-        <Card className={classes.root}>
-          <CardActionArea>
-            <CardMedia
-             component="img"
-             alt="BLM Logo"
-             height="140"
-             image_url="https://blacklivesmatter.com/wp-content/themes/blm/dist/images/logo-black-lives-matter.png"
-             title="Contemplative Reptile"
-           />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Police Brutality Protest 
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              BLM DC
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Twitter
-          </Button>
-          <Button size="small" color="primary">
-            Website
-          </Button>
-        </CardActions>
-      </Card>
-
-      <Card className={classes.root}>
-        <CardActionArea>
+      const {chapters} = this.props;
+      const grid = chapters ? chapters.map((chapter, index) => 
+      <Grid item xs={4} key={index} style={{marginBottom: 30}}>
+        <Card className="feedGrid" style={{display: 'block', justifyContent: 'space-between', flexDirection: 'column'}}>
+          <CardHeader
+            className="feedGrid"
+            title={chapter.city !== '' ? chapter.city : chapter.state}
+            subheader={chapter.state}
+          />
+            
           <CardMedia
             component="img"
-            alt="BLM Logo"
-            height="140"
-            image_url="https://blacklivesmatter.com/wp-content/themes/blm/dist/images/logo-black-lives-matter.png"
-            title="Contemplative Reptile"
+            alt="City Logo"
+            image={chapter.image}
           />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              March for Justice
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              BLM LA
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Twitter
-          </Button>
-          <Button size="small" color="primary">
-            Website
-          </Button>
-        </CardActions>
-      </Card>
+          
+          <Divider style={{background: '#ffd415'}} variant="middle"/>
 
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            component="img"
-            alt="BLM Logo"
-            height="140"
-            image_url="https://blacklivesmatter.com/wp-content/themes/blm/dist/images/logo-black-lives-matter.png"
-            title="BLM logo"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              Freedom Protest
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              BLM Boston
-            </Typography>
-          </CardContent>
-        </CardActionArea>
-        <CardActions>
-          <Button size="small" color="primary">
-            Twitter
-          </Button>
-          <Button size="small" color="primary">
-            Website
-          </Button>
-        </CardActions>
-      </Card>
+          <CardActions style={{justifyContent: 'center'}}>
+            {chapter.website ? <Button style={{color:'#ffd415', backgroundColor: 'black'}} endIcon={<OpenInNewIcon />}
+              onClick={() => window.open('https://www.'+ chapter.website, '_blank')}>        
+              Website
+            </Button> : null }
+            {chapter.email ? <IconButton style={{color:'#ffd415', backgroundColor: 'black'}} 
+              onClick={() => window.open('mailto: '+ chapter.email)}> 
+              <EmailIcon />
+            </IconButton> : null }
+            {chapter.twitter ? <IconButton style={{color:'#ffd415', backgroundColor: 'black'}} 
+              onClick={() => window.open('https://www.'+ chapter.twitter, '_blank')}>        
+              <TwitterIcon />
+            </IconButton> : null }
+            {chapter.facebook ? <IconButton style={{color:'#ffd415', backgroundColor: 'black'}} 
+              onClick={() => window.open('https://www.'+ chapter.facebook, '_blank')}>        
+              <FacebookIcon />
+            </IconButton> : null }
+            {chapter.instagram ? <IconButton style={{color:'#ffd415', backgroundColor: 'black'}} 
+              onClick={() => window.open('https://www.'+ chapter.instagram, '_blank')}>        
+              <InstagramIcon />
+            </IconButton> : null }
+          </CardActions>
+        </Card>
    </Grid>) : null
   
   

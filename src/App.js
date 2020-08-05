@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom'
 import Feed from './components/feed/feed'
 import Uplift from './components/uplift'
-import Protest from './components/protest'
+import Protest from './components/protest/protest'
 import Action from './components/action'
 import NotFound from './components/404'
 import Navbar from './components/navbar'
