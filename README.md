@@ -72,18 +72,19 @@ $ ./run.sh
     ├── src
     │   ├── components      # All frontend components used to display web pages 
     |   |   ├── feed                # Social Media Feed component
-    |   |   |   └── cardGridInstagram.js    # Generates cards from Instagram
-    |   |   |   └── cardGridNews.js         # Generates cards from News
-    |   |   |   └── cardGridReddit.js       # Generates cards from Reddit
-    |   |   |   └── cardGridTwitter.js      # Generates cards from Twitter
+    |   |   |   ├── cardGridInstagram.js    # Generates cards from Instagram
+    |   |   |   ├── cardGridNews.js         # Generates cards from News
+    |   |   |   ├── cardGridReddit.js       # Generates cards from Reddit
+    |   |   |   ├── cardGridTwitter.js      # Generates cards from Twitter
     |   |   |   └── feed.js                 # Calls APIs and shows result
-    |   |   |   └── ...
+    |   |   ├── uplift               # Uplift component
+    |   |   |   ├── cardGridBlackBusiness.js    # Generates Business cards
+    |   |   |   └── uplift.js                   # Calls Yelp API and shows result
     |   |   ├── 404.js              # 404 component
     |   |   ├── about.js            # About component
     |   |   ├── action.js           # Action component
     |   |   ├── navbar.js           # Navbar component
-    |   |   ├── protest.js          # Protest component
-    |   |   └── uplift.js           # Uplift component
+    |   |   └── protest.js          # Protest component
     │   ├── App.js      # Main Component responsible for routing
     │   ├── index.css   # Main CSS File
     │   ├── theme.js    # Takes a component and applies a theme to it
