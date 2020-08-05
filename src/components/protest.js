@@ -6,11 +6,11 @@ import CardGridProtest from protest/cardGridProtest;
 
 const cities = [
   { city: 'LA',
-    twitter: 'twitter.com/BLMLA',
-    website: 'BLMLA.org',
+    twitter: 'https://twitter.com/BLMLA',
+    website: 'https://www.blmla.org/',
     email: 'emailblmla@gmail.com',
-    facebook: 'facebook.com/BLMLA',
-    instagram: 'instagram.com/BLMLosAngeles'
+    facebook: 'https://www.facebook.com/blmla/',
+    instagram: 'https://www.instagram.com/BLMLosAngeles/'
   },
   { city: 'Boston',
     twitter: 'twitter.com/BLMBoston',
